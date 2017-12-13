@@ -399,7 +399,8 @@ static int rndis_filter_receive_data(struct net_device *ndev,
 	data = (void *)((unsigned long)data + data_offset);
 	csum_info = rndis_get_ppi(rndis_pkt, TCPIP_CHKSUM_PKTINFO);
 	hash_info = rndis_get_ppi(rndis_pkt, NBL_HASH_VALUE);
-	return netvsc_recv_callback(ndev, channel,
+
+	return netvsc_recv_callback(ndev, nvdev, channel,
 				    data, rndis_pkt->data_len,
 				    csum_info, vlan, hash_info);
 }
