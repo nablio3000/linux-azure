@@ -214,7 +214,7 @@ hv_uio_probe(struct hv_device *dev,
 	}
 
 	dev->channel->inbound.ring_buffer->interrupt_mask = 1;
-	set_channel_read_mode(dev->channel, HV_CALL_DIRECT);
+	set_channel_read_mode(dev->channel, HV_CALL_ISR);
 
 	/* Fill general uio info */
 	pdata->info.name = "uio_hv_generic";
