@@ -1572,7 +1572,6 @@ static struct sk_buff *tun_build_skb(struct tun_struct *tun,
 	unsigned int delta = 0;
 	char *buf;
 	size_t copied;
-	bool xdp_xmit = false;
 	int err, pad = TUN_RX_PAD;
 
 	rcu_read_lock();
@@ -1630,8 +1629,14 @@ static struct sk_buff *tun_build_skb(struct tun_struct *tun,
 			local_bh_enable();
 			return NULL;
 		case XDP_TX:
-			xdp_xmit = true;
-			/* fall through */
+			get_page(alloc_frag->page);
+			alloc_frag->offset += buflen;
+			if (tun_xdp_xmit(tun->dev, &xdp))
+				goto err_redirect;
+			tun_xdp_flush(tun->dev);
+			rcu_read_unlock();
+			local_bh_enable();
+			return NULL;
 		case XDP_PASS:
 			delta = orig_data - xdp.data;
 			break;
@@ -1658,14 +1663,6 @@ static struct sk_buff *tun_build_skb(struct tun_struct *tun,
 	skb_set_owner_w(skb, tfile->socket.sk);
 	get_page(alloc_frag->page);
 	alloc_frag->offset += buflen;
-
-	if (xdp_xmit) {
-		skb->dev = tun->dev;
-		generic_xdp_tx(skb, xdp_prog);
-		rcu_read_unlock();
-		local_bh_enable();
-		return NULL;
-	}
 
 	rcu_read_unlock();
 	local_bh_enable();
