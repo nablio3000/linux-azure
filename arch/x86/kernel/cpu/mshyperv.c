@@ -23,7 +23,7 @@
 #include <linux/i8253.h>
 #include <asm/processor.h>
 #include <asm/hypervisor.h>
-#include <asm/hyperv.h>
+#include <asm/hyperv-tlfs.h>
 #include <asm/mshyperv.h>
 #include <asm/desc.h>
 #include <asm/irq_regs.h>
