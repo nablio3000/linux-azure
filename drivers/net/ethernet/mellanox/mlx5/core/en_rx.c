@@ -1002,6 +1002,7 @@ struct sk_buff *skb_from_cqe(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe,
 				      di->addr + wi->offset,
 				      0, frag_size,
 				      DMA_FROM_DEVICE);
+	prefetchw(va); /* xdp_frame data area */
 	prefetch(data);
 	wi->offset += frag_size;
 
