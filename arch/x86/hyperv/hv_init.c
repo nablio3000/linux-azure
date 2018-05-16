@@ -265,6 +265,7 @@ static int hv_cpu_die(unsigned int cpu)
  *
  * 1. Setup the hypercall page.
  * 2. Register Hyper-V specific clocksource.
+ * 3. Setup Hyper-V specific APIC entry points.
  */
 void __init hyperv_init(void)
 {
@@ -322,6 +323,7 @@ void __init hyperv_init(void)
 	hyper_alloc_mmu();
 
 	x86_init.pci.arch_init = hv_pci_init;
+	hv_apic_init();
 
 	/*
 	 * Register Hyper-V specific clocksource.
