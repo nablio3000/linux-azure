@@ -245,7 +245,7 @@ static int bq_xmit_all(struct bpf_dtab_netdev *obj,
 
 		err = dev->netdev_ops->ndo_xdp_xmit(dev, xdpf);
 		if (err)
-			xdp_return_frame(xdpf);
+			xdp_return_frame_rx_napi(xdpf);
 	}
 	bq->count = 0;
 
