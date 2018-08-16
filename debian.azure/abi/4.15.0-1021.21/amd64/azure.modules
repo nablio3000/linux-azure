@@ -249,7 +249,6 @@ i2c-core
 i40e
 ib_iser
 ib_isert
-ib_uverbs
 icp
 ieee802154
 ieee802154_6lowpan
@@ -595,7 +594,6 @@ raw
 raw_diag
 rbd
 rbtree_test
-rdma_ucm
 reed_solomon
 rmd128
 rmd160
