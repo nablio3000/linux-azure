@@ -782,12 +782,6 @@ EXPORT_SYMBOL drivers/i2c/i2c-core 0x00000000	i2c_transfer
 EXPORT_SYMBOL drivers/i2c/i2c-core 0x00000000	i2c_use_client
 EXPORT_SYMBOL drivers/i2c/i2c-core 0x00000000	i2c_verify_adapter
 EXPORT_SYMBOL drivers/i2c/i2c-core 0x00000000	i2c_verify_client
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	ib_copy_ah_attr_to_user
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	ib_copy_path_rec_from_user
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	ib_copy_path_rec_to_user
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	ib_copy_qp_attr_to_user
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	uverbs_alloc_spec_tree
-EXPORT_SYMBOL drivers/infiniband/core/ib_uverbs 0x00000000	uverbs_free_spec_tree
 EXPORT_SYMBOL drivers/input/input-polldev 0x00000000	devm_input_allocate_polled_device
 EXPORT_SYMBOL drivers/input/input-polldev 0x00000000	input_allocate_polled_device
 EXPORT_SYMBOL drivers/input/input-polldev 0x00000000	input_free_polled_device
@@ -4780,6 +4774,10 @@ EXPORT_SYMBOL vmlinux 0x00000000	ib_cm_init_qp_attr
 EXPORT_SYMBOL vmlinux 0x00000000	ib_cm_insert_listen
 EXPORT_SYMBOL vmlinux 0x00000000	ib_cm_listen
 EXPORT_SYMBOL vmlinux 0x00000000	ib_cm_notify
+EXPORT_SYMBOL vmlinux 0x00000000	ib_copy_ah_attr_to_user
+EXPORT_SYMBOL vmlinux 0x00000000	ib_copy_path_rec_from_user
+EXPORT_SYMBOL vmlinux 0x00000000	ib_copy_path_rec_to_user
+EXPORT_SYMBOL vmlinux 0x00000000	ib_copy_qp_attr_to_user
 EXPORT_SYMBOL vmlinux 0x00000000	ib_create_ah_from_wc
 EXPORT_SYMBOL vmlinux 0x00000000	ib_create_cm_id
 EXPORT_SYMBOL vmlinux 0x00000000	ib_create_cq
@@ -7697,6 +7695,8 @@ EXPORT_SYMBOL vmlinux 0x00000000	utf8s_to_utf16s
 EXPORT_SYMBOL vmlinux 0x00000000	uuid_is_valid
 EXPORT_SYMBOL vmlinux 0x00000000	uuid_null
 EXPORT_SYMBOL vmlinux 0x00000000	uuid_parse
+EXPORT_SYMBOL vmlinux 0x00000000	uverbs_alloc_spec_tree
+EXPORT_SYMBOL vmlinux 0x00000000	uverbs_free_spec_tree
 EXPORT_SYMBOL vmlinux 0x00000000	vc_cons
 EXPORT_SYMBOL vmlinux 0x00000000	vc_resize
 EXPORT_SYMBOL vmlinux 0x00000000	verify_spi_info
