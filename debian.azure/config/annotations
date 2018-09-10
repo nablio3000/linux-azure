@@ -1539,6 +1539,8 @@ CONFIG_TCM_FC                                   policy<{'amd64': 'm', 'arm64': '
 CONFIG_ISCSI_TARGET                             policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm', 's390x': 'm'}>
 CONFIG_ISCSI_TARGET_CXGB4                       policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm'}>
 CONFIG_SBP_TARGET                               policy<{'amd64': 'm', 'arm64': 'm', 'armhf': 'm', 'i386': 'm', 'ppc64el': 'm'}>
+#
+CONFIG_LOOPBACK_TARGET                          mark<ENFORCED> note<LP#1791794>
 
 # Menu: Device Drivers >> Generic Thermal sysfs driver
 CONFIG_THERMAL                                  policy<{'amd64': 'y', 'arm64': 'y', 'armhf': 'y', 'i386': 'y', 'ppc64el': 'y', 's390x': 'n'}>
