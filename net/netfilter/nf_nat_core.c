@@ -135,7 +135,8 @@ hash_by_src(const struct net *n, const struct nf_conntrack_tuple *tuple)
 /* Is this tuple already taken? (not by us) */
 int
 nf_nat_used_tuple(const struct nf_conntrack_tuple *tuple,
-		  const struct nf_conn *ignored_conntrack)
+		  const struct nf_conn *ignored_conntrack,
+		  bool ignore_same_orig)
 {
 	/* Conntrack tracking doesn't keep track of outgoing tuples; only
 	 * incoming ones.  NAT means they don't have a fixed mapping,
@@ -146,7 +147,15 @@ nf_nat_used_tuple(const struct nf_conntrack_tuple *tuple,
 	struct nf_conntrack_tuple reply;
 
 	nf_ct_invert_tuplepr(&reply, tuple);
-	return nf_conntrack_tuple_taken(&reply, ignored_conntrack);
+	/* If ignore_same_orig is enabled, the following function will ignore
+	 * any matching CT with the same IP_CT_DIR_ORIGINAL tuple.
+	 *
+	 * Used when calling the function for a CT of a connection-less protocol
+	 * such as UDP to ignore a clashing CT which originated from the same
+	 * socket.
+	 */
+	return nf_conntrack_reply_tuple_taken(&reply, ignored_conntrack,
+					      ignore_same_orig);
 }
 EXPORT_SYMBOL(nf_nat_used_tuple);
 
@@ -304,7 +313,9 @@ get_unique_tuple(struct nf_conntrack_tuple *tuple,
 	const struct nf_conntrack_zone *zone;
 	const struct nf_nat_l3proto *l3proto;
 	const struct nf_nat_l4proto *l4proto;
+	const struct nf_conntrack_l4proto *ct_l4proto;
 	struct net *net = nf_ct_net(ct);
+	bool ignore_same_orig = false;
 
 	zone = nf_ct_zone(ct);
 
@@ -312,6 +323,16 @@ get_unique_tuple(struct nf_conntrack_tuple *tuple,
 	l3proto = __nf_nat_l3proto_find(orig_tuple->src.l3num);
 	l4proto = __nf_nat_l4proto_find(orig_tuple->src.l3num,
 					orig_tuple->dst.protonum);
+	ct_l4proto = __nf_ct_l4proto_find(nf_ct_l3num(ct), nf_ct_protonum(ct));
+
+	/* If the protocol allows the clash resolution, then when searching
+	 * for clashing CTs ignore the ones with the same IP_CT_DIR_ORIGINAL
+	 * tuple as they originate from the same socket. This prevents from
+	 * generating different reply tuples for two racing packets from
+	 * the same connection-less (e.g. UDP) socket which results in dropping
+	 * one of the packets in __nf_conntrack_confirm.
+	 */
+	ignore_same_orig = ct_l4proto->allow_clash;
 
 	/* 1) If this srcip/proto/src-proto-part is currently mapped,
 	 * and that same mapping gives a unique tuple within the given
@@ -325,14 +346,15 @@ get_unique_tuple(struct nf_conntrack_tuple *tuple,
 	    !(range->flags & NF_NAT_RANGE_PROTO_RANDOM_ALL)) {
 		/* try the original tuple first */
 		if (in_range(l3proto, l4proto, orig_tuple, range)) {
-			if (!nf_nat_used_tuple(orig_tuple, ct)) {
+			if (!nf_nat_used_tuple(orig_tuple, ct,
+					       ignore_same_orig)) {
 				*tuple = *orig_tuple;
 				goto out;
 			}
 		} else if (find_appropriate_src(net, zone, l3proto, l4proto,
 						orig_tuple, tuple, range)) {
 			pr_debug("get_unique_tuple: Found current src map\n");
-			if (!nf_nat_used_tuple(tuple, ct))
+			if (!nf_nat_used_tuple(tuple, ct, ignore_same_orig))
 				goto out;
 		}
 	}
@@ -352,9 +374,9 @@ get_unique_tuple(struct nf_conntrack_tuple *tuple,
 					      &range->min_proto,
 					      &range->max_proto) &&
 			    (range->min_proto.all == range->max_proto.all ||
-			     !nf_nat_used_tuple(tuple, ct)))
+			     !nf_nat_used_tuple(tuple, ct, ignore_same_orig)))
 				goto out;
-		} else if (!nf_nat_used_tuple(tuple, ct)) {
+		} else if (!nf_nat_used_tuple(tuple, ct, ignore_same_orig)) {
 			goto out;
 		}
 	}
