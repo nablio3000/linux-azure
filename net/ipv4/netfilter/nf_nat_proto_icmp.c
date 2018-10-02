@@ -47,7 +47,7 @@ icmp_unique_tuple(const struct nf_nat_l3proto *l3proto,
 	for (i = 0; ; ++id) {
 		tuple->src.u.icmp.id = htons(ntohs(range->min_proto.icmp.id) +
 					     (id % range_size));
-		if (++i == range_size || !nf_nat_used_tuple(tuple, ct))
+		if (++i == range_size || !nf_nat_used_tuple(tuple, ct, false))
 			return;
 	}
 	return;
