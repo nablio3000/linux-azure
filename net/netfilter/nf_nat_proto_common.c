@@ -89,7 +89,7 @@ void nf_nat_l4proto_unique_tuple(const struct nf_nat_l3proto *l3proto,
 
 	for (i = 0; ; ++off) {
 		*portptr = htons(min + off % range_size);
-		if (++i != range_size && nf_nat_used_tuple(tuple, ct))
+		if (++i != range_size && nf_nat_used_tuple(tuple, ct, false))
 			continue;
 		if (!(range->flags & NF_NAT_RANGE_PROTO_RANDOM_ALL))
 			*rover = off;
