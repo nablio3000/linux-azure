@@ -896,8 +896,9 @@ EXPORT_SYMBOL_GPL(__nf_conntrack_confirm);
 /* Returns true if a connection correspondings to the tuple (required
    for NAT). */
 int
-nf_conntrack_tuple_taken(const struct nf_conntrack_tuple *tuple,
-			 const struct nf_conn *ignored_conntrack)
+nf_conntrack_reply_tuple_taken(const struct nf_conntrack_tuple *tuple,
+			       const struct nf_conn *ignored_conntrack,
+			       bool ignore_same_orig)
 {
 	struct net *net = nf_ct_net(ignored_conntrack);
 	const struct nf_conntrack_zone *zone;
@@ -938,9 +939,10 @@ nf_conntrack_tuple_taken(const struct nf_conntrack_tuple *tuple,
 			 *
 			 * Let nf_ct_resolve_clash() deal with this later.
 			 */
-			if (nf_ct_tuple_equal(&ignored_conntrack->tuplehash[IP_CT_DIR_ORIGINAL].tuple,
+			if (ignore_same_orig &&
+			    nf_ct_tuple_equal(&ignored_conntrack->tuplehash[IP_CT_DIR_ORIGINAL].tuple,
 					      &ct->tuplehash[IP_CT_DIR_ORIGINAL].tuple) &&
-					      nf_ct_zone_equal(ct, zone, IP_CT_DIR_ORIGINAL))
+				nf_ct_zone_equal(ct, zone, IP_CT_DIR_ORIGINAL))
 				continue;
 
 			NF_CT_STAT_INC_ATOMIC(net, found);
@@ -958,7 +960,7 @@ nf_conntrack_tuple_taken(const struct nf_conntrack_tuple *tuple,
 
 	return 0;
 }
-EXPORT_SYMBOL_GPL(nf_conntrack_tuple_taken);
+EXPORT_SYMBOL_GPL(nf_conntrack_reply_tuple_taken);
 
 #define NF_CT_EVICTION_RANGE	8
 
