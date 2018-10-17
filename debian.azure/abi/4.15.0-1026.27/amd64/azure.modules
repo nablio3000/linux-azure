@@ -673,6 +673,7 @@ target_core_iblock
 target_core_mod
 target_core_pscsi
 target_core_user
+tcm_loop
 tcp_bbr
 tcp_bic
 tcp_cdg
