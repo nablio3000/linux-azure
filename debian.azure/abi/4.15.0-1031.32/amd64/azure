@@ -9080,10 +9080,6 @@ EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_smbios_error
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_smbios_find_token
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_smbios_register_device
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_smbios_unregister_device
-EXPORT_SYMBOL_GPL drivers/platform/x86/dell-wmi-descriptor 0x00000000	dell_wmi_get_descriptor_valid
-EXPORT_SYMBOL_GPL drivers/platform/x86/dell-wmi-descriptor 0x00000000	dell_wmi_get_hotfix
-EXPORT_SYMBOL_GPL drivers/platform/x86/dell-wmi-descriptor 0x00000000	dell_wmi_get_interface_version
-EXPORT_SYMBOL_GPL drivers/platform/x86/dell-wmi-descriptor 0x00000000	dell_wmi_get_size
 EXPORT_SYMBOL_GPL drivers/platform/x86/intel_ips 0x00000000	ips_link_to_i915_driver
 EXPORT_SYMBOL_GPL drivers/platform/x86/intel_pmc_ipc 0x00000000	intel_pmc_gcr_read
 EXPORT_SYMBOL_GPL drivers/platform/x86/intel_pmc_ipc 0x00000000	intel_pmc_gcr_update
