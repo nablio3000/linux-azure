@@ -11504,6 +11504,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	class_interface_unregister
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	class_remove_file_ns
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	class_unregister
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	cleanup_srcu_struct
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	clear_hv_tscchange_cb
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	clear_page_erms
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	clear_page_orig
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	clear_page_rep
@@ -12687,8 +12688,9 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	hrtimer_start_range_ns
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hrtimer_try_to_cancel
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hugetlb_cgrp_subsys_enabled_key
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hugetlb_cgrp_subsys_on_dfl_key
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_get_tsc_page
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_hypercall_pg
-EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_is_hypercall_page_setup
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_is_hyperv_initialized
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_pkt_iter_close
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_pkt_iter_first
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_remove_crash_handler
@@ -12698,6 +12700,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_ringbuffer_get_debuginfo
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_setup_crash_handler
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_setup_kexec_handler
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_setup_vmbus_irq
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_vp_assist_page
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hv_vp_index
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hvc_alloc
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hvc_instantiate
@@ -12726,7 +12729,9 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	hwspin_lock_request_specific
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hwspin_lock_unregister
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_cleanup
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_cs
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_pcpu_input_arg
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_report_panic
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_stop_tsc_emulation
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ib_wq
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ibft_addr
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	idr_alloc_cmn
@@ -14558,6 +14563,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	serial8250_rx_dma_flush
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	serial8250_set_defaults
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	serial8250_tx_chars
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	set_cpus_allowed_ptr
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	set_hv_tscchange_cb
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	set_memory_array_wt
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	set_memory_decrypted
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	set_memory_encrypted
