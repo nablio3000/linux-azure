@@ -1491,7 +1491,6 @@ rtc-pcf85363
 rts5208
 rtsx_pci
 rxrpc
-salsa20-x86_64
 salsa20_generic
 sata_dwc_460ex
 sb1000
