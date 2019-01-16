@@ -11,6 +11,6 @@ repo_list=(
 
 package_prefixes linux-image linux-modules
 
-getall amd64 azure-edge
+getall amd64 azure
 
 # Ports arches and flavours.
