@@ -1,4 +1,4 @@
-linux-azure-edge (4.18.0-1008.8~18.04.1) bionic; urgency=medium
+linux-azure (4.18.0-1008.8~18.04.1) bionic; urgency=medium
 
   * linux-azure-edge: 4.18.0-1008.8~18.04.1 -proposed tracker (LP: #1811410)
 
