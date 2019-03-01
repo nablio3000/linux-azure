@@ -96,29 +96,7 @@ then
 	exit 1
 fi
 
-#
-# Pick up any master branch changes to udeb modules or firmware.
-#
-rsync -av --delete ${DEBIAN_SOURCE}/d-i/ ${DEBIAN_TARGET}/d-i
-
-#
-# Update configs from master
-#
-rsync -av --delete ${DEBIAN_SOURCE}/config/ ${DEBIAN_TARGET}/config
-
-#
-# Update package and DTB settings from master.
-#
-rsync -av --delete ${DEBIAN_SOURCE}/rules.d/*.mk ${DEBIAN_TARGET}/rules.d/
-
-#
-# Update modprobe.d from master
-#
-rsync -av --delete ${DEBIAN_SOURCE}/modprobe.d/ ${DEBIAN_TARGET}/modprobe.d
-
-cp -p ${DEBIAN_SOURCE}/control.d/*.inclusion-list ${DEBIAN_TARGET}/control.d
-
-cp -p ${DEBIAN_SOURCE}/reconstruct ${DEBIAN_TARGET}/reconstruct
+"./${DEBIAN_TARGET}/scripts/helpers/copy-files"
 
 fakeroot debian/rules clean updateconfigs
 
