@@ -185,3 +185,6 @@ obj-$(CONFIG_FPGA)		+= fpga/
 obj-$(CONFIG_FSI)		+= fsi/
 obj-$(CONFIG_TEE)		+= tee/
 obj-$(CONFIG_MULTIPLEXER)	+= mux/
+
+# Catapult FPGA driver for linux-azure
+obj-$(CONFIG_CATAPULT_PCI)	+= catapult/
