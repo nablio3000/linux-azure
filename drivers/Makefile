@@ -188,3 +188,6 @@ obj-$(CONFIG_SIOX)		+= siox/
 obj-$(CONFIG_GNSS)		+= gnss/
 obj-$(CONFIG_INTERCONNECT)	+= interconnect/
 obj-$(CONFIG_COUNTER)		+= counter/
+
+# Catapult FPGA driver for linux-azure
+obj-$(CONFIG_CATAPULT_PCI)	+= catapult/
