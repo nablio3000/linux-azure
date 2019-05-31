@@ -187,3 +187,6 @@ obj-$(CONFIG_MULTIPLEXER)	+= mux/
 obj-$(CONFIG_UNISYS_VISORBUS)	+= visorbus/
 obj-$(CONFIG_SIOX)		+= siox/
 obj-$(CONFIG_GNSS)		+= gnss/
+
+# Catapult FPGA driver for linux-azure
+obj-$(CONFIG_CATAPULT_PCI)	+= catapult/
