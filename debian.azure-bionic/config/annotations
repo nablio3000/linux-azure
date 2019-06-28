@@ -4,17 +4,11 @@
 
 include "../../debian.master/config/annotations"
 
-CONFIG_MLX4_INFINIBAND                             policy<{'amd64': 'm'}>
-CONFIG_MLX4_INFINIBAND                             mark<ENFORCED> note<LP:#1827916>
+CONFIG_MLX4_INFINIBAND                             policy<{'amd64': 'y'}>
+CONFIG_MLX4_INFINIBAND                             mark<ENFORCED> note<LP:#1759656>
 
-CONFIG_MLX5_INFINIBAND                             policy<{'amd64': 'm'}>
-CONFIG_MLX5_INFINIBAND                             mark<ENFORCED> note<LP:#1827916>
-
-CONFIG_INFINIBAND_USER_MAD                         policy<{'amd64': 'm'}>
-CONFIG_INFINIBAND_USER_MAD                         mark<ENFORCED> note<LP:#1827916>
-
-CONFIG_INFINIBAND_IPOIB                            policy<{'amd64': 'm'}>
-CONFIG_INFINIBAND_IPOIB                            mark<ENFORCED> note<LP:#1827916>
+CONFIG_MLX5_INFINIBAND                             policy<{'amd64': 'y'}>
+CONFIG_MLX5_INFINIBAND                             mark<ENFORCED> note<LP:#1759656>
 
 CONFIG_BLK_DEV_NVME                                policy<{'amd64': 'y'}>
 CONFIG_BLK_DEV_NVME                                mark<ENFORCED> note<LP:#1793386>
@@ -48,6 +42,12 @@ CONFIG_IOSCHED_BFQ                                 policy<{'amd64': 'm'}>
 
 CONFIG_BFQ_GROUP_IOSCHED                           policy<{'amd64': 'y'}>
 CONFIG_BFQ_GROUP_IOSCHED                           mark<ENFORCED> note<LP:#1813211>
+
+CONFIG_INFINIBAND_USER_MAD                         policy<{'amd64': 'y'}>
+CONFIG_INFINIBAND_USER_MAD                         note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
+
+CONFIG_INFINIBAND_IPOIB                            policy<{'amd64': 'y'}>
+CONFIG_INFINIBAND_IPOIB                            note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
 
 CONFIG_INFINIBAND_IPOIB_DEBUG                      policy<{'amd64': 'y'}>
 CONFIG_INFINIBAND_IPOIB_DEBUG                      note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
