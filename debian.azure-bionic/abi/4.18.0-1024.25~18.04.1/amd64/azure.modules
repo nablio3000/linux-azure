@@ -618,15 +618,10 @@ i915
 iTCO_vendor_support
 iTCO_wdt
 ib700wdt
-ib_cm
-ib_core
-ib_ipoib
 ib_iser
 ib_isert
 ib_mthca
 ib_srp
-ib_umad
-ib_uverbs
 ibmaem
 ibmasm
 ibmasr
@@ -797,7 +792,6 @@ it87
 it8712f_wdt
 it87_wdt
 ite-cir
-iw_cm
 iw_nes
 ixgb
 ixgbe
@@ -965,10 +959,7 @@ mii
 minix
 mip6
 mlx-platform
-mlx4_core
 mlx4_en
-mlx4_ib
-mlx5_ib
 mlxfw
 mlxreg-hotplug
 mlxsw_core
@@ -1489,8 +1480,6 @@ rc-winfast-usbii-deluxe
 rc-zx-irdec
 rcuperf
 rdc321x-southbridge
-rdma_cm
-rdma_ucm
 rds
 rds_rdma
 rds_tcp
