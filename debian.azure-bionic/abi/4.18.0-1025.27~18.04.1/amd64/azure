@@ -13996,6 +13996,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_delete_ctrl_sync
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_delete_wq
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_disable_ctrl
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_enable_ctrl
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_get_features
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_init_ctrl
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_init_identify
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_io_timeout
@@ -14005,6 +14006,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_reset_ctrl
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_reset_ctrl_sync
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_reset_wq
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_sec_submit
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_set_features
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_set_queue_count
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_setup_cmd
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_shutdown_ctrl
@@ -14015,6 +14017,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_stop_ctrl
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_stop_keep_alive
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_stop_queues
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_submit_sync_cmd
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_sync_queues
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_unfreeze
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_uninit_ctrl
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	nvme_wait_freeze

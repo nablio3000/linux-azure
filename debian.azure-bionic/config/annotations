@@ -4,11 +4,23 @@
 
 include "../../debian.master/config/annotations"
 
-CONFIG_MLX4_INFINIBAND                             policy<{'amd64': 'y'}>
-CONFIG_MLX4_INFINIBAND                             mark<ENFORCED> note<LP:#1759656>
+CONFIG_MLX5_CORE                                   policy<{'amd64': 'm'}>
+CONFIG_MLX5_CORE                                   mark<ENFORCED> note<LP:#1837397>
 
-CONFIG_MLX5_INFINIBAND                             policy<{'amd64': 'y'}>
-CONFIG_MLX5_INFINIBAND                             mark<ENFORCED> note<LP:#1759656>
+CONFIG_MLX4_CORE                                   policy<{'amd64': 'm'}>
+CONFIG_MLX4_CORE                                   mark<ENFORCED> note<LP:#1837397>
+
+CONFIG_MLX4_INFINIBAND                             policy<{'amd64': 'm'}>
+CONFIG_MLX4_INFINIBAND                             mark<ENFORCED> note<LP:#1837397>
+
+CONFIG_MLX5_INFINIBAND                             policy<{'amd64': 'm'}>
+CONFIG_MLX5_INFINIBAND                             mark<ENFORCED> note<LP:#1837397>
+
+CONFIG_INFINIBAND_USER_MAD                         policy<{'amd64': 'm'}>
+CONFIG_INFINIBAND_USER_MAD                         mark<ENFORCED> note<LP:#1837397>
+
+CONFIG_INFINIBAND_IPOIB                            policy<{'amd64': 'm'}>
+CONFIG_INFINIBAND_IPOIB                            mark<ENFORCED> note<LP:#1837397>
 
 CONFIG_BLK_DEV_NVME                                policy<{'amd64': 'y'}>
 CONFIG_BLK_DEV_NVME                                mark<ENFORCED> note<LP:#1793386>
@@ -18,36 +30,6 @@ CONFIG_EDAC_DECODE_MCE                             mark<ENFORCED> note<LP:#17933
 
 CONFIG_EDAC_AMD64                                  policy<{'amd64': 'm'}>
 CONFIG_EDAC_AMD64                                  mark<ENFORCED> note<LP:#1793386>
-
-CONFIG_IOSCHED_NOOP                                policy<{'amd64': 'y'}>
-CONFIG_IOSCHED_NOOP                                mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_IOSCHED_DEADLINE                            policy<{'amd64': 'm'}>
-CONFIG_IOSCHED_DEADLINE                            mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_IOSCHED_CFQ                                 policy<{'amd64': 'm'}>
-CONFIG_IOSCHED_CFQ                                 mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_CFQ_GROUP_IOSCHED                           policy<{'amd64': 'y'}>
-CONFIG_CFQ_GROUP_IOSCHED                           mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_MQ_IOSCHED_DEADLINE                         policy<{'amd64': 'm'}>
-CONFIG_MQ_IOSCHED_DEADLINE                         mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_MQ_IOSCHED_KYBER                            policy<{'amd64': 'm'}>
-CONFIG_MQ_IOSCHED_KYBER                            mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_IOSCHED_BFQ                                 mark<ENFORCED> note<LP:#1813211>
-CONFIG_IOSCHED_BFQ                                 policy<{'amd64': 'm'}>
-
-CONFIG_BFQ_GROUP_IOSCHED                           policy<{'amd64': 'y'}>
-CONFIG_BFQ_GROUP_IOSCHED                           mark<ENFORCED> note<LP:#1813211>
-
-CONFIG_INFINIBAND_USER_MAD                         policy<{'amd64': 'y'}>
-CONFIG_INFINIBAND_USER_MAD                         note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
-
-CONFIG_INFINIBAND_IPOIB                            policy<{'amd64': 'y'}>
-CONFIG_INFINIBAND_IPOIB                            note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
 
 CONFIG_INFINIBAND_IPOIB_DEBUG                      policy<{'amd64': 'y'}>
 CONFIG_INFINIBAND_IPOIB_DEBUG                      note<LP:#1818141> note<LP:#1798185> mark<ENFORCED>
@@ -97,9 +79,6 @@ CONFIG_ACPI_NFIT                                   mark<ENFORCED> note<LP:#17157
 CONFIG_RTC_CLASS                                   policy<{'amd64': 'y'}>
 CONFIG_RTC_CLASS                                   mark<ENFORCED> note<LP:#1718262>
 
-CONFIG_SCSI_MQ_DEFAULT                             policy<{'amd64': 'y'}>
-CONFIG_SCSI_MQ_DEFAULT                             mark<ENFORCED> note<LP:#1745261>
-
 CONFIG_I2C_PIIX4                                   policy<{'amd64': 'n'}>
 CONFIG_I2C_PIIX4                                   mark<ENFORCED> note<LP:#1752999>
 
@@ -114,9 +93,6 @@ CONFIG_VBOXGUEST                                   mark<ENFORCED> note<LP:#17966
 
 CONFIG_XEN_ACPI_PROCESSOR                          policy<{'amd64': '-'}>
 CONFIG_XEN_ACPI_PROCESSOR                          mark<ENFORCED> note<LP:#1671203>
-
-CONFIG_HYPERV_IOMMU                                policy<{'amd64': 'y'}>
-CONFIG_HYPERV_IOMMU                                mark<ENFORCED> note<LP:#1826447>
 
 # From linux-azure initial packaging
 
