@@ -76,6 +76,7 @@ EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	__drm_puts_seq_file
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	__drm_set_edid_firmware_path
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_add_edid_modes
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_add_modes_noedid
+EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_add_override_edid_modes
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_agp_acquire
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_agp_alloc
 EXPORT_SYMBOL drivers/gpu/drm/drm 0x00000000	drm_agp_bind
@@ -1698,6 +1699,7 @@ EXPORT_SYMBOL drivers/net/mii 0x00000000	mii_ethtool_sset
 EXPORT_SYMBOL drivers/net/mii 0x00000000	mii_link_ok
 EXPORT_SYMBOL drivers/net/mii 0x00000000	mii_nway_restart
 EXPORT_SYMBOL drivers/net/phy/bcm-phy-lib 0x00000000	bcm54xx_auxctl_write
+EXPORT_SYMBOL drivers/net/ppp/pppox 0x00000000	pppox_compat_ioctl
 EXPORT_SYMBOL drivers/net/ppp/pppox 0x00000000	pppox_ioctl
 EXPORT_SYMBOL drivers/net/ppp/pppox 0x00000000	pppox_unbind_sock
 EXPORT_SYMBOL drivers/net/ppp/pppox 0x00000000	register_pppox_proto
@@ -2907,6 +2909,7 @@ EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_get_p2p_attr
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_get_station
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_gtk_rekey_notify
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_ibss_joined
+EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_iftype_allowed
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_inform_bss_data
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_inform_bss_frame_data
 EXPORT_SYMBOL net/wireless/cfg80211 0x00000000	cfg80211_iter_combinations
@@ -5045,6 +5048,7 @@ EXPORT_SYMBOL vmlinux 0x00000000	filemap_check_errors
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_fault
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_fdatawait_keep_errors
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_fdatawait_range
+EXPORT_SYMBOL vmlinux 0x00000000	filemap_fdatawait_range_keep_errors
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_fdatawrite
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_fdatawrite_range
 EXPORT_SYMBOL vmlinux 0x00000000	filemap_flush
@@ -5465,7 +5469,11 @@ EXPORT_SYMBOL vmlinux 0x00000000	inet_dgram_ops
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_destroy
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_find
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_kill
+EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_pull_head
+EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_queue_insert
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_rbtree_purge
+EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_reasm_finish
+EXPORT_SYMBOL vmlinux 0x00000000	inet_frag_reasm_prepare
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frags_exit_net
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frags_fini
 EXPORT_SYMBOL vmlinux 0x00000000	inet_frags_init
@@ -5762,6 +5770,8 @@ EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_init_inode
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_init_jbd_inode
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_inode_add_wait
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_inode_add_write
+EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_inode_ranged_wait
+EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_inode_ranged_write
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_invalidatepage
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_load
 EXPORT_SYMBOL vmlinux 0x00000000	jbd2_journal_lock_updates
@@ -9852,8 +9862,8 @@ EXPORT_SYMBOL_GPL drivers/nvme/target/nvmet-fc 0x00000000	nvmet_fc_unregister_ta
 EXPORT_SYMBOL_GPL drivers/pci/switch/switchtec 0x00000000	switchtec_class
 EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_probe_by_hid
 EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_probe_by_uid
-EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_resume
-EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_suspend
+EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_resume_noirq
+EXPORT_SYMBOL_GPL drivers/pinctrl/intel/pinctrl-intel 0x00000000	intel_pinctrl_suspend_noirq
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_laptop_call_notifier
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_laptop_register_notifier
 EXPORT_SYMBOL_GPL drivers/platform/x86/dell-smbios 0x00000000	dell_laptop_unregister_notifier
@@ -10306,6 +10316,7 @@ EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_may_open
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_mkdir
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_mknod
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_net_id
+EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_open
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_pageio_init_read
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_pageio_init_write
 EXPORT_SYMBOL_GPL fs/nfs/nfs 0x00000000	nfs_pageio_resend
@@ -14072,7 +14083,8 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	kgdb_unregister_nmi_console
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	kick_all_cpus_sync
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	kick_process
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	kill_dax
-EXPORT_SYMBOL_GPL vmlinux 0x00000000	kill_pid_info_as_cred
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	kill_device
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	kill_pid_usb_asyncio
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	klist_add_before
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	klist_add_behind
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	klist_add_head
