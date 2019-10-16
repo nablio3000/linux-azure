@@ -2559,8 +2559,8 @@ static int hv_pci_probe(struct hv_device *hdev,
 	 * between domains derived from these instance IDs in the same
 	 * VM.
 	 */
-	hbus->sysdata.domain = hdev->dev_instance.b[9] |
-			       hdev->dev_instance.b[8] << 8;
+	hbus->sysdata.domain = hdev->dev_instance.b[4] |
+			       hdev->dev_instance.b[5] << 8;
 
 	hbus->hdev = hdev;
 	refcount_set(&hbus->remove_lock, 1);
