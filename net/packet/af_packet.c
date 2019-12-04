@@ -2569,6 +2569,15 @@ static int tpacket_fill_skb(struct packet_sock *po, struct sk_buff *skb,
 		len = ((to_write > len_max) ? len_max : to_write);
 	}
 
+	if ((!skb->protocol || skb->protocol == htons(ETH_P_ALL)) &&
+	    sock->type == SOCK_RAW) {
+		const struct ethhdr *eth;
+
+		skb_reset_mac_header(skb);
+		eth = eth_hdr(skb);
+		skb->protocol = eth->h_proto;
+	}
+
 	skb_probe_transport_header(skb, 0);
 
 	return tp_len;
