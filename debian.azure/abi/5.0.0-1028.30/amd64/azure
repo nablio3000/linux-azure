@@ -4704,7 +4704,6 @@ EXPORT_SYMBOL vmlinux 0x00000000	devm_ioport_unmap
 EXPORT_SYMBOL vmlinux 0x00000000	devm_ioremap
 EXPORT_SYMBOL vmlinux 0x00000000	devm_ioremap_nocache
 EXPORT_SYMBOL vmlinux 0x00000000	devm_ioremap_resource
-EXPORT_SYMBOL vmlinux 0x00000000	devm_ioremap_uc
 EXPORT_SYMBOL vmlinux 0x00000000	devm_ioremap_wc
 EXPORT_SYMBOL vmlinux 0x00000000	devm_iounmap
 EXPORT_SYMBOL vmlinux 0x00000000	devm_kvasprintf
@@ -4726,6 +4725,11 @@ EXPORT_SYMBOL vmlinux 0x00000000	devm_request_resource
 EXPORT_SYMBOL vmlinux 0x00000000	devm_request_threaded_irq
 EXPORT_SYMBOL vmlinux 0x00000000	devmap_managed_key
 EXPORT_SYMBOL vmlinux 0x00000000	dget_parent
+EXPORT_SYMBOL vmlinux 0x00000000	dim_calc_stats
+EXPORT_SYMBOL vmlinux 0x00000000	dim_on_top
+EXPORT_SYMBOL vmlinux 0x00000000	dim_park_on_top
+EXPORT_SYMBOL vmlinux 0x00000000	dim_park_tired
+EXPORT_SYMBOL vmlinux 0x00000000	dim_turn
 EXPORT_SYMBOL vmlinux 0x00000000	disable_irq
 EXPORT_SYMBOL vmlinux 0x00000000	disable_irq_nosync
 EXPORT_SYMBOL vmlinux 0x00000000	discard_new_inode
@@ -4975,7 +4979,6 @@ EXPORT_SYMBOL vmlinux 0x00000000	fb_dealloc_cmap
 EXPORT_SYMBOL vmlinux 0x00000000	fb_default_cmap
 EXPORT_SYMBOL vmlinux 0x00000000	fb_deferred_io_mmap
 EXPORT_SYMBOL vmlinux 0x00000000	fb_destroy_modedb
-EXPORT_SYMBOL vmlinux 0x00000000	fb_edid_add_monspecs
 EXPORT_SYMBOL vmlinux 0x00000000	fb_edid_to_monspecs
 EXPORT_SYMBOL vmlinux 0x00000000	fb_find_best_display
 EXPORT_SYMBOL vmlinux 0x00000000	fb_find_best_mode
@@ -6273,6 +6276,11 @@ EXPORT_SYMBOL vmlinux 0x00000000	neigh_table_clear
 EXPORT_SYMBOL vmlinux 0x00000000	neigh_table_init
 EXPORT_SYMBOL vmlinux 0x00000000	neigh_update
 EXPORT_SYMBOL vmlinux 0x00000000	neigh_xmit
+EXPORT_SYMBOL vmlinux 0x00000000	net_dim
+EXPORT_SYMBOL vmlinux 0x00000000	net_dim_get_def_rx_moderation
+EXPORT_SYMBOL vmlinux 0x00000000	net_dim_get_def_tx_moderation
+EXPORT_SYMBOL vmlinux 0x00000000	net_dim_get_rx_moderation
+EXPORT_SYMBOL vmlinux 0x00000000	net_dim_get_tx_moderation
 EXPORT_SYMBOL vmlinux 0x00000000	net_disable_timestamp
 EXPORT_SYMBOL vmlinux 0x00000000	net_enable_timestamp
 EXPORT_SYMBOL vmlinux 0x00000000	net_ns_barrier
@@ -6991,6 +6999,7 @@ EXPORT_SYMBOL vmlinux 0x00000000	rb_prev
 EXPORT_SYMBOL vmlinux 0x00000000	rb_replace_node
 EXPORT_SYMBOL vmlinux 0x00000000	rb_replace_node_cached
 EXPORT_SYMBOL vmlinux 0x00000000	rb_replace_node_rcu
+EXPORT_SYMBOL vmlinux 0x00000000	rdma_dim
 EXPORT_SYMBOL vmlinux 0x00000000	rdmacg_register_device
 EXPORT_SYMBOL vmlinux 0x00000000	rdmacg_try_charge
 EXPORT_SYMBOL vmlinux 0x00000000	rdmacg_uncharge
@@ -13111,6 +13120,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_hwspin_lock_request
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_hwspin_lock_request_specific
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_hwspin_lock_unregister
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_init_badblocks
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_ioremap_uc
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_irq_alloc_generic_chip
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_irq_setup_generic_chip
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	devm_irq_sim_init
