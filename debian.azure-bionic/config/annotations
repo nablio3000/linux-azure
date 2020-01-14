@@ -187,3 +187,6 @@ CONFIG_SOUND_OSS_CORE_PRECLAIM                     note<Unnecessary for Azure>
 
 CONFIG_NETWORK_PHY_TIMESTAMPING                    policy<{'amd64': 'n'}>
 CONFIG_NETWORK_PHY_TIMESTAMPING                    note<Unnecessary for Azure>
+
+CONFIG_USB_OHCI_HCD                                policy<{'amd64': 'n'}>
+CONFIG_USB_OHCI_HCD                                note<Unnecessary for Azure>
