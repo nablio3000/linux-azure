@@ -211,3 +211,6 @@ CONFIG_NETWORK_PHY_TIMESTAMPING                    note<Unnecessary for Azure>
 
 CONFIG_DP83640_PHY                                 policy<{'amd64': '-'}>
 CONFIG_DP83640_PHY                                 note<Unnecessary for Azure>
+
+CONFIG_USB_OHCI_HCD                                policy<{'amd64': 'n'}>
+CONFIG_USB_OHCI_HCD                                note<Unnecessary for Azure>
