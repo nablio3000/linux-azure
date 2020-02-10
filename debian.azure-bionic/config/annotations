@@ -196,3 +196,12 @@ CONFIG_SND_SOC_SOF_NOCODEC_SUPPORT                 note<Unnecessary for Azure>
 
 CONFIG_NETWORK_PHY_TIMESTAMPING                    policy<{'amd64': 'n'}>
 CONFIG_NETWORK_PHY_TIMESTAMPING                    note<Unnecessary for Azure>
+
+CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC           policy<{'amd64': 'n'}>
+CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC           note<Unnecessary for Azure>
+
+CONFIG_SOUNDWIRE                                   policy<{'amd64': 'n'}>
+CONFIG_SOUNDWIRE                                   note<Unnecessary for Azure>
+
+CONFIG_USB_OHCI_HCD                                policy<{'amd64': 'n'}>
+CONFIG_USB_OHCI_HCD                                note<Unnecessary for Azure>
