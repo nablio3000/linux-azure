@@ -26,6 +26,7 @@ EXPORT_SYMBOL drivers/block/drbd/drbd 0x00000000	drbd_conn_str
 EXPORT_SYMBOL drivers/block/drbd/drbd 0x00000000	drbd_disk_str
 EXPORT_SYMBOL drivers/block/drbd/drbd 0x00000000	drbd_role_str
 EXPORT_SYMBOL drivers/block/drbd/drbd 0x00000000	drbd_set_st_err_str
+EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_add_smi
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_addr_length
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_addr_src_to_str
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_alloc_smi_msg
@@ -39,7 +40,6 @@ EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_get_smi_info
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_get_version
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_poll_interface
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_register_for_cmd
-EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_register_smi
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_request_settime
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_request_supply_msgs
 EXPORT_SYMBOL drivers/char/ipmi/ipmi_msghandler 0x00000000	ipmi_set_gets_events
@@ -8884,9 +8884,11 @@ EXPORT_SYMBOL_GPL drivers/ata/libahci 0x00000000	ahci_start_engine
 EXPORT_SYMBOL_GPL drivers/ata/libahci 0x00000000	ahci_start_fis_rx
 EXPORT_SYMBOL_GPL drivers/ata/libahci 0x00000000	ahci_stop_engine
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_disable_clks
+EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_disable_phys
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_disable_regulators
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_disable_resources
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_enable_clks
+EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_enable_phys
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_enable_regulators
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_enable_resources
 EXPORT_SYMBOL_GPL drivers/ata/libahci_platform 0x00000000	ahci_platform_get_resources
@@ -12102,6 +12104,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_port_schedule_eh
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_port_wait_eh
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_qc_complete
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_qc_complete_multiple
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_qc_get_active
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_ratelimit
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_sas_async_probe
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ata_sas_port_alloc
