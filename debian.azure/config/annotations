@@ -214,3 +214,9 @@ CONFIG_SOUNDWIRE                                   note<Unnecessary for Azure>
 
 CONFIG_USB_OHCI_HCD                                policy<{'amd64': 'n'}>
 CONFIG_USB_OHCI_HCD                                note<Unnecessary for Azure>
+
+CONFIG_SND_SOC_INTEL_SKYLAKE                       policy<{'amd64': '-'}>
+CONFIG_SND_SOC_INTEL_SKYLAKE                       note<Unnecessary for Azure>
+
+CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC         policy<{'amd64': '-'}>
+CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC         note<Unnecessary for Azure>
