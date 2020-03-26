@@ -1857,7 +1857,9 @@ xfrm_user
 xfs
 xgene-hwmon
 xgifb
+xhci-plat-hcd
 xor
+xr_usb_serial_common
 xt_AUDIT
 xt_CHECKSUM
 xt_CLASSIFY
