@@ -1156,8 +1156,8 @@ static int netvsc_receive(struct net_device *ndev,
 		int ret;
 
 		/* Pass it to the upper layer */
-		ret = rndis_filter_receive(ndev, net_device, device,
-					      channel, data, buflen);
+		ret = rndis_filter_receive(ndev, net_device,
+					   channel, data, buflen);
 
 		if (unlikely(ret != NVSP_STAT_SUCCESS))
 			status = NVSP_STAT_FAIL;
