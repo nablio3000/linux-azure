@@ -220,3 +220,6 @@ CONFIG_SND_SOC_INTEL_SKYLAKE                       note<Unnecessary for Azure>
 
 CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC         policy<{'amd64': '-'}>
 CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC         note<Unnecessary for Azure>
+
+CONFIG_CONTEXT_TRACKING_FORCE                      policy<{'amd64': 'n'}>
+CONFIG_CONTEXT_TRACKING_FORCE                      note<Unnecessary for Azure>
