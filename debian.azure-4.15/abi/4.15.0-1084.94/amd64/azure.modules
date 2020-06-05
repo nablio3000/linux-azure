@@ -1500,6 +1500,7 @@ rpcsec_gss_krb5
 rpmsg_char
 rpmsg_core
 rt5033
+rtc-am1805
 rtc-ftrtc010
 rtc-pcf85363
 rts5208
