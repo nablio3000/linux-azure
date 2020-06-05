@@ -3217,6 +3217,7 @@ EXPORT_SYMBOL vmlinux 0x00000000	__block_write_full_page
 EXPORT_SYMBOL vmlinux 0x00000000	__blockdev_direct_IO
 EXPORT_SYMBOL vmlinux 0x00000000	__bread_gfp
 EXPORT_SYMBOL vmlinux 0x00000000	__breadahead
+EXPORT_SYMBOL vmlinux 0x00000000	__breadahead_gfp
 EXPORT_SYMBOL vmlinux 0x00000000	__break_lease
 EXPORT_SYMBOL vmlinux 0x00000000	__brelse
 EXPORT_SYMBOL vmlinux 0x00000000	__cachemode2pte_tbl
@@ -8217,6 +8218,7 @@ EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_lapic_switch_to_hv_timer
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_lapic_switch_to_sw_timer
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_lmsw
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_load_guest_xcr0
+EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_map_gfn
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_max_guest_tsc_khz
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_max_tsc_scaling_ratio
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_mce_cap_supported
@@ -8283,6 +8285,7 @@ EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_slot_page_track_remove_page
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_spurious_fault
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_task_switch
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_tsc_scaling_ratio_frac_bits
+EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_unmap_gfn
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_valid_efer
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_block
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_cache
@@ -8294,6 +8297,7 @@ EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_halt
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_init
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_is_reset_bsp
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_kick
+EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_map
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_mark_page_dirty
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_on_spin
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_read_guest
@@ -8301,6 +8305,7 @@ EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_read_guest_atomic
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_read_guest_page
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_reload_apic_access_page
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_uninit
+EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_unmap
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_wake_up
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_write_guest
 EXPORT_SYMBOL_GPL arch/x86/kvm/kvm 0x00000000	kvm_vcpu_write_guest_page
