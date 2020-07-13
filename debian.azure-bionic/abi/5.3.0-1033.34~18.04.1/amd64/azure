@@ -5823,6 +5823,7 @@ EXPORT_SYMBOL vmlinux 0x00000000	ktime_get_real_ts64
 EXPORT_SYMBOL vmlinux 0x00000000	kvasprintf
 EXPORT_SYMBOL vmlinux 0x00000000	kvasprintf_const
 EXPORT_SYMBOL vmlinux 0x00000000	kvfree
+EXPORT_SYMBOL vmlinux 0x00000000	kvfree_sensitive
 EXPORT_SYMBOL vmlinux 0x00000000	kvmalloc_node
 EXPORT_SYMBOL vmlinux 0x00000000	kzfree
 EXPORT_SYMBOL vmlinux 0x00000000	laptop_mode
