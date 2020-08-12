@@ -61,9 +61,18 @@ static u64 read_hv_clock_tsc(struct clocksource *arg)
 	return current_tick;
 }
 
+/* The Hyper-V clocksource ratings of 250 are chosen to be below the
+ * TSC clocksource rating of 300.  In configurations where Hyper-V offers
+ * an InvariantTSC, the TSC is not marked "unstable", so the TSC clocksource
+ * is available and preferred.  With the higher rating, it will be the
+ * default.  On older hardware and Hyper-V versions, the TSC is marked
+ * "unstable", so no TSC clocksource is created and the selected Hyper-V
+ * clocksource will be the default.
+ */
+
 static struct clocksource hyperv_cs_tsc = {
 		.name		= "hyperv_clocksource_tsc_page",
-		.rating		= 400,
+		.rating		= 250,
 		.read		= read_hv_clock_tsc,
 		.mask		= CLOCKSOURCE_MASK(64),
 		.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
@@ -84,7 +93,7 @@ static u64 read_hv_clock_msr(struct clocksource *arg)
 
 static struct clocksource hyperv_cs_msr = {
 	.name		= "hyperv_clocksource_msr",
-	.rating		= 400,
+	.rating		= 250,
 	.read		= read_hv_clock_msr,
 	.mask		= CLOCKSOURCE_MASK(64),
 	.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
