@@ -13055,6 +13055,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_cleanup
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_cs
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_pcpu_input_arg
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_report_panic
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_report_panic_msg
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	hyperv_stop_tsc_emulation
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	ibft_addr
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	idr_alloc_cmn
