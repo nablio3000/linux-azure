@@ -547,6 +547,12 @@ int ib_register_device(struct ib_device *device,
 
 	device->reg_state = IB_DEV_REGISTERED;
 
+	if (device->enable_driver) {
+		ret = device->enable_driver(device);
+		if (ret)
+			goto sysfs_cleanup;
+	}
+
 	list_for_each_entry(client, &client_list, list)
 		if (!add_client_context(device, client) && client->add)
 			client->add(device);
@@ -558,6 +564,8 @@ int ib_register_device(struct ib_device *device,
 	mutex_unlock(&device_mutex);
 	return 0;
 
+sysfs_cleanup:
+	ib_device_unregister_sysfs(device);
 cg_cleanup:
 	ib_device_unregister_rdmacg(device);
 cache_cleanup:
