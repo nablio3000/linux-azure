@@ -1191,6 +1191,15 @@ static struct device_attribute *rxe_dev_attributes[] = {
 	&dev_attr_parent,
 };
 
+static int rxe_enable_driver(struct ib_device *ib_dev)
+{
+	struct rxe_dev *rxe = container_of(ib_dev, struct rxe_dev, ib_dev);
+
+	rxe_set_port_state(rxe);
+	dev_info(&rxe->ib_dev.dev, "added %s\n", netdev_name(rxe->ndev));
+	return 0;
+}
+
 int rxe_register_device(struct rxe_dev *rxe)
 {
 	int err;
@@ -1293,6 +1302,7 @@ int rxe_register_device(struct rxe_dev *rxe)
 	dev->detach_mcast = rxe_detach_mcast;
 	dev->get_hw_stats = rxe_ib_get_hw_stats;
 	dev->alloc_hw_stats = rxe_ib_alloc_hw_stats;
+	dev->enable_driver = rxe_enable_driver;
 
 	tfm = crypto_alloc_shash("crc32", 0, 0);
 	if (IS_ERR(tfm)) {
@@ -1324,6 +1334,10 @@ err2:
 err1:
 	crypto_free_shash(rxe->tfm);
 
+	/*
+	 * Note that rxe may be invalid at this point if another thread
+	 * unregistered it.
+	 */
 	return err;
 }
 
