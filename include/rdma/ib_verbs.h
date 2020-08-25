@@ -2317,6 +2317,11 @@ struct ib_device {
 							   struct ib_rwq_ind_table_init_attr *init_attr,
 							   struct ib_udata *udata);
 	int                        (*destroy_rwq_ind_table)(struct ib_rwq_ind_table *wq_ind_table);
+	/*
+	 * Called after the device becomes registered, before clients are
+	 * attached
+	 */
+	int                        (*enable_driver)(struct ib_device *device);
 	/**
 	 * rdma netdev operation
 	 *
