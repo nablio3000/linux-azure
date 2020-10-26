@@ -166,7 +166,7 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon)
 	if (tcon == NULL)
 		return 0;
 
-	if (smb2_command == SMB2_TREE_CONNECT || smb2_command == SMB2_IOCTL)
+	if (smb2_command == SMB2_TREE_CONNECT)
 		return 0;
 
 	if (tcon->tidStatus == CifsExiting) {
@@ -372,17 +372,12 @@ smb2_plain_req_init(__le16 smb2_command, struct cifs_tcon *tcon,
  * function must have filled in request_buf pointer. The returned buffer
  * has RFC1001 length at the beginning.
  */
-static int
-small_smb2_init(__le16 smb2_command, struct cifs_tcon *tcon,
-		void **request_buf)
+static int __small_smb2_init(__le16 smb2_command, struct cifs_tcon *tcon,
+			     void **request_buf)
 {
-	int rc;
+	int rc = 0;
 	unsigned int total_len;
 	struct smb2_pdu *pdu;
-
-	rc = smb2_reconnect(smb2_command, tcon);
-	if (rc)
-		return rc;
 
 	/* BB eventually switch this to SMB2 specific small buf size */
 	*request_buf = cifs_small_buf_get();
@@ -408,6 +403,29 @@ small_smb2_init(__le16 smb2_command, struct cifs_tcon *tcon,
 
 	return rc;
 }
+
+static int small_smb2_init(__le16 smb2_command, struct cifs_tcon *tcon,
+			   void **request_buf)
+{
+	int rc;
+
+	rc = smb2_reconnect(smb2_command, tcon);
+	if (rc)
+		return rc;
+
+	return __small_smb2_init(smb2_command, tcon, request_buf);
+}
+
+static int small_smb2_ioctl_init(u32 opcode, struct cifs_tcon *tcon,
+				 void **request_buf)
+{
+       /* Skip reconnect only for FSCTL_VALIDATE_NEGOTIATE_INFO IOCTLs */
+       if (opcode == FSCTL_VALIDATE_NEGOTIATE_INFO) {
+	       return __small_smb2_init(SMB2_IOCTL, tcon, request_buf);
+       }
+       return small_smb2_init(SMB2_IOCTL, tcon, request_buf);
+}
+
 
 #ifdef CONFIG_CIFS_SMB311
 /* offset is sizeof smb2_negotiate_req - 4 but rounded up to 8 bytes */
@@ -1937,7 +1955,7 @@ SMB2_ioctl(const unsigned int xid, struct cifs_tcon *tcon, u64 persistent_fid,
 	if (!ses || !(ses->server))
 		return -EIO;
 
-	rc = small_smb2_init(SMB2_IOCTL, tcon, (void **) &req);
+	rc = small_smb2_ioctl_init(opcode, tcon, (void **) &req);
 	if (rc)
 		return rc;
 
