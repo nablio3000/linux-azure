@@ -130,6 +130,9 @@ CONFIG_USB_XHCI_PLATFORM                           mark<ENFORCED> note<LP:#18670
 CONFIG_LOOPBACK_TARGET                             policy<{'amd64': 'm'}>
 CONFIG_LOOPBACK_TARGET                             mark<ENFORCED> note<LP#1791794>
 
+CONFIG_BT_HS					   policy<{'amd64': '-'}>
+CONFIG_BT_HS					   mark<ENFORCED> note<https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00435.html>
+
 # From linux-azure initial packaging
 
 CONFIG_POWERCAP                                    policy<{'amd64': 'n'}>
