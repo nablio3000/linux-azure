@@ -1267,7 +1267,6 @@ pcf50633
 pcf50633-adc
 pcf50633-gpio
 pcf8591
-pci-hyperv
 pci-stub
 pci200syn
 pcips2
