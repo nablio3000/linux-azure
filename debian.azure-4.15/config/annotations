@@ -136,6 +136,9 @@ CONFIG_LOOPBACK_TARGET                             mark<ENFORCED> note<LP#179179
 CONFIG_BT_HS					   policy<{'amd64': '-'}>
 CONFIG_BT_HS					   mark<ENFORCED> note<https://www.intel.com/content/www/us/en/security-center/advisory/intel-sa-00435.html>
 
+CONFIG_ATARI_PARTITION                             policy<{'amd64': 'n'}>
+CONFIG_ATARI_PARTITION                             mark<ENFORCED> note<LP:1908264>
+
 # From linux-azure initial packaging
 
 CONFIG_POWERCAP                                    policy<{'amd64': 'n'}>
