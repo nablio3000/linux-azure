@@ -2324,7 +2324,7 @@ static void vmx_save_host_state(struct kvm_vcpu *vcpu)
 	vmx->host_state.gs_ldt_reload_needed = vmx->host_state.ldt_sel;
 
 #ifdef CONFIG_X86_64
-	save_fsgs_for_kvm();
+	current_save_fsgs();
 	vmx->host_state.fs_sel = current->thread.fsindex;
 	vmx->host_state.gs_sel = current->thread.gsindex;
 #else
