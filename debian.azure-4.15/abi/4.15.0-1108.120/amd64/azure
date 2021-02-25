@@ -3405,6 +3405,7 @@ EXPORT_SYMBOL vmlinux 0x00000000	__nlmsg_put
 EXPORT_SYMBOL vmlinux 0x00000000	__node_distance
 EXPORT_SYMBOL vmlinux 0x00000000	__page_cache_alloc
 EXPORT_SYMBOL vmlinux 0x00000000	__page_frag_cache_drain
+EXPORT_SYMBOL vmlinux 0x00000000	__page_pool_put_page
 EXPORT_SYMBOL vmlinux 0x00000000	__page_symlink
 EXPORT_SYMBOL vmlinux 0x00000000	__pagevec_lru_add
 EXPORT_SYMBOL vmlinux 0x00000000	__pagevec_release
@@ -6213,6 +6214,9 @@ EXPORT_SYMBOL vmlinux 0x00000000	page_get_link
 EXPORT_SYMBOL vmlinux 0x00000000	page_mapped
 EXPORT_SYMBOL vmlinux 0x00000000	page_mapping
 EXPORT_SYMBOL vmlinux 0x00000000	page_offset_base
+EXPORT_SYMBOL vmlinux 0x00000000	page_pool_alloc_pages
+EXPORT_SYMBOL vmlinux 0x00000000	page_pool_create
+EXPORT_SYMBOL vmlinux 0x00000000	page_pool_destroy
 EXPORT_SYMBOL vmlinux 0x00000000	page_put_link
 EXPORT_SYMBOL vmlinux 0x00000000	page_readlink
 EXPORT_SYMBOL vmlinux 0x00000000	page_symlink
@@ -7635,6 +7639,9 @@ EXPORT_SYMBOL vmlinux 0x00000000	tty_unthrottle
 EXPORT_SYMBOL vmlinux 0x00000000	tty_vhangup
 EXPORT_SYMBOL vmlinux 0x00000000	tty_wait_until_sent
 EXPORT_SYMBOL vmlinux 0x00000000	tty_write_room
+EXPORT_SYMBOL vmlinux 0x00000000	tun_is_xdp_frame
+EXPORT_SYMBOL vmlinux 0x00000000	tun_ptr_to_xdp
+EXPORT_SYMBOL vmlinux 0x00000000	tun_xdp_to_ptr
 EXPORT_SYMBOL vmlinux 0x00000000	uart_add_one_port
 EXPORT_SYMBOL vmlinux 0x00000000	uart_get_baud_rate
 EXPORT_SYMBOL vmlinux 0x00000000	uart_get_divisor
@@ -9291,7 +9298,7 @@ EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_del_queues
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_destroy_cdev
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_free_minor
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_get_minor
-EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_get_skb_array
+EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_get_ptr_ring
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_get_socket
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_handle_frame
 EXPORT_SYMBOL_GPL drivers/net/tap 0x00000000	tap_queue_resize
@@ -11000,6 +11007,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	__devm_regmap_init
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__devm_regmap_init_mmio_clk
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__devm_regmap_init_spi
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__devm_reset_control_get
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	__devm_spi_alloc_controller
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__dma_request_channel
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__efivar_entry_delete
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	__efivar_entry_get
@@ -11282,7 +11290,6 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_os_unmap_memory
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pci_check_ejectable
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pci_detect_ejectable
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pci_find_root
-EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pm_set_bridge_wakeup
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pm_set_device_wakeup
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_pm_wakeup_event
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	acpi_processor_ffh_cstate_enter
@@ -12156,6 +12163,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	cs47l24_irq
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	cs47l24_patch
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	cs47l24_spi_regmap
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	current_is_async
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	current_save_fsgs
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	d_exchange
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	d_walk
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	da9052_adc_manual_read
@@ -15172,8 +15180,8 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	tty_set_termios
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	tty_standard_install
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	tty_termios_encode_baud_rate
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	tty_wakeup
-EXPORT_SYMBOL_GPL vmlinux 0x00000000	tun_get_skb_array
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	tun_get_socket
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	tun_get_tx_ring
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	uart_console_write
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	uart_handle_cts_change
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	uart_handle_dcd_change
@@ -15556,6 +15564,14 @@ EXPORT_SYMBOL_GPL vmlinux 0x00000000	xattr_getsecurity
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_do_flush_map
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_do_generic_redirect
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_do_redirect
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_return_buff
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_return_frame
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_return_frame_rx_napi
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_rxq_info_is_reg
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_rxq_info_reg
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_rxq_info_reg_mem_model
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_rxq_info_unreg
+EXPORT_SYMBOL_GPL vmlinux 0x00000000	xdp_rxq_info_unused
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xfrm_audit_policy_add
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xfrm_audit_policy_delete
 EXPORT_SYMBOL_GPL vmlinux 0x00000000	xfrm_audit_state_add
