@@ -2133,6 +2133,14 @@ SMB2_close(const unsigned int xid, struct cifs_tcon *tcon,
 	rsp = (struct smb2_close_rsp *)rsp_iov.iov_base;
 
 	if (rc != 0) {
+		/* retry close in a worker thread if this one is interrupted */
+		if (rc == -EINTR) {
+			int tmp_rc = smb2_handle_cancelled_close(tcon, persistent_fid,
+							volatile_fid);
+			if (tmp_rc)
+				cifs_dbg(VFS, "handle cancelled close fid 0x%llx returned error %d\n",
+					persistent_fid, tmp_rc);
+		}
 		cifs_stats_fail_inc(tcon, SMB2_CLOSE_HE);
 		goto close_exit;
 	}
@@ -2147,7 +2155,6 @@ close_exit:
 static int
 validate_buf(unsigned int offset, unsigned int buffer_length,
 	     struct smb2_hdr *hdr, unsigned int min_buf_size)
-
 {
 	unsigned int smb_len = be32_to_cpu(hdr->smb2_buf_length);
 	char *end_of_smb = smb_len + 4 /* RFC1001 length field */ + (char *)hdr;
