@@ -100,6 +100,13 @@ DeleteMidQEntry(struct mid_q_entry *midEntry)
 	__le16 command = midEntry->server->vals->lock_cmd;
 	unsigned long now;
 #endif
+	struct TCP_Server_Info *server = midEntry->server;
+
+	if (midEntry->resp_buf && (midEntry->mid_flags & MID_WAIT_CANCELLED) &&
+	    midEntry->mid_state == MID_RESPONSE_RECEIVED &&
+	    server->ops->handle_cancelled_mid)
+		server->ops->handle_cancelled_mid(midEntry->resp_buf, server);
+
 	midEntry->mid_state = MID_FREE;
 	atomic_dec(&midCount);
 	if (midEntry->large_buf)
@@ -768,8 +775,8 @@ cifs_send_recv(const unsigned int xid, struct cifs_ses *ses,
 		cifs_dbg(FYI, "Cancelling wait for mid %llu\n",	midQ->mid);
 		send_cancel(ses->server, rqst, midQ);
 		spin_lock(&GlobalMid_Lock);
+		midQ->mid_flags |= MID_WAIT_CANCELLED;
 		if (midQ->mid_state == MID_REQUEST_SUBMITTED) {
-			midQ->mid_flags |= MID_WAIT_CANCELLED;
 			midQ->callback = DeleteMidQEntry;
 			spin_unlock(&GlobalMid_Lock);
 			add_credits(ses->server, 1, optype);
