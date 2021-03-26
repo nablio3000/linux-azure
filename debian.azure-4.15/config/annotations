@@ -235,3 +235,6 @@ CONFIG_USB_OHCI_HCD                                note<Unnecessary for Azure>
 
 CONFIG_CONTEXT_TRACKING_FORCE                      policy<{'amd64': 'n'}>
 CONFIG_CONTEXT_TRACKING_FORCE                      note<Unnecessary for Azure>
+
+CONFIG_DRM_BOCHS                                   policy<{'amd64': 'n'}>
+CONFIG_DRM_BOCHS                                   note<Unnecessary for Azure>
