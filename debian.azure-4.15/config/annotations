@@ -4,6 +4,17 @@
 
 include "../../debian.master/config/annotations"
 
+CONFIG_I2C                                      policy<{'amd64': 'm'}>
+CONFIG_I2C                                      mark<ENFORCED> note<s390x lacks hw support for i2c>
+
+CONFIG_LATENCYTOP                               policy<{'amd64': 'n'}>
+CONFIG_LATENCYTOP                               mark<ENFORCED> note<https://lists.ubuntu.com/archives/kernel-team/2014-July/045006.html, LP#1655986>
+
+CONFIG_SPI_INTEL_SPI_PCI                        policy<{'amd64': '-'}>
+CONFIG_SPI_INTEL_SPI_PLATFORM                   policy<{'amd64': '-'}>
+CONFIG_SPI_INTEL_SPI_PCI                        mark<ENFORCED> note<LP:1734147>
+CONFIG_SPI_INTEL_SPI_PLATFORM                   mark<ENFORCED> note<LP:1734147>
+
 CONFIG_FPGA_MGR_XILINX_SPI                         mark<ENFORCED> note<LP:#1922582>
 CONFIG_FPGA_MGR_XILINX_SPI                         policy<{'amd64': 'm'}>
 
