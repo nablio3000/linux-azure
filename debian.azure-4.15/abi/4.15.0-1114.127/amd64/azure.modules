@@ -428,6 +428,7 @@ fm10k
 fore_200e
 fou
 fou6
+fpga-mgr
 freevxfs
 fsa9480
 fscache
@@ -1859,6 +1860,7 @@ xfs
 xgene-hwmon
 xgifb
 xhci-plat-hcd
+xilinx-spi
 xor
 xr_usb_serial_common
 xt_AUDIT
