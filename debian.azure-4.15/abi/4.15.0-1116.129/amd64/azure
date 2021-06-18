@@ -13040,6 +13040,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x6ff5bd2d	pinctrl_utils_add_map_configs
 EXPORT_SYMBOL_GPL vmlinux 0x6ff607b6	crypto_get_default_rng
 EXPORT_SYMBOL_GPL vmlinux 0x7006586e	iommu_get_group_resv_regions
 EXPORT_SYMBOL_GPL vmlinux 0x70069cf8	proc_mkdir_data
+EXPORT_SYMBOL_GPL vmlinux 0x7013dd8a	md_submit_discard_bio
 EXPORT_SYMBOL_GPL vmlinux 0x7053c697	alloc_vm_area
 EXPORT_SYMBOL_GPL vmlinux 0x7059cdb4	lwtstate_free
 EXPORT_SYMBOL_GPL vmlinux 0x707ff1bb	ata_xfer_mask2mode
