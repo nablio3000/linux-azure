@@ -1988,9 +1988,6 @@ EXPORT_SYMBOL drivers/vhost/vringh 0xc578f0f7	vringh_complete_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xd355e031	vringh_complete_kern
 EXPORT_SYMBOL drivers/vhost/vringh 0xd609393d	vringh_notify_disable_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xde804bb9	vringh_iov_pull_kern
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbcopyarea 0xea9d33ad	cfb_copyarea
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbfillrect 0xe93cb0a4	cfb_fillrect
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbimgblt 0x411c2678	cfb_imageblit
 EXPORT_SYMBOL drivers/video/fbdev/core/syscopyarea 0x66167ebb	sys_copyarea
 EXPORT_SYMBOL drivers/video/fbdev/core/sysfillrect 0x65b7fdb2	sys_fillrect
 EXPORT_SYMBOL drivers/video/fbdev/core/sysimgblt 0x18b56945	sys_imageblit

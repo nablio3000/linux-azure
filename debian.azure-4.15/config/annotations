@@ -4,6 +4,9 @@
 
 include "../../debian.master/config/annotations"
 
+CONFIG_FB_EFI                                   policy<{'amd64': 'y'}>
+CONFIG_FB_EFI                                   mark<ENFORCED> note<lp: #1959216>
+
 CONFIG_I2C                                      policy<{'amd64': 'm'}>
 CONFIG_I2C                                      mark<ENFORCED> note<s390x lacks hw support for i2c>
 
