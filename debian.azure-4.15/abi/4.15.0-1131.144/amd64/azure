@@ -2407,8 +2407,8 @@ EXPORT_SYMBOL net/ceph/libceph 0xff8b393c	osd_req_op_raw_data_in_pages
 EXPORT_SYMBOL net/dccp/dccp_ipv4 0x2bab8cf7	dccp_req_err
 EXPORT_SYMBOL net/dccp/dccp_ipv4 0x943dabd4	dccp_syn_ack_timeout
 EXPORT_SYMBOL net/ieee802154/ieee802154 0x1bdaefa6	wpan_phy_unregister
+EXPORT_SYMBOL net/ieee802154/ieee802154 0x4eeade87	wpan_phy_new
 EXPORT_SYMBOL net/ieee802154/ieee802154 0x5beabd5e	wpan_phy_for_each
-EXPORT_SYMBOL net/ieee802154/ieee802154 0x6fd7ef32	wpan_phy_new
 EXPORT_SYMBOL net/ieee802154/ieee802154 0x7a588202	wpan_phy_free
 EXPORT_SYMBOL net/ieee802154/ieee802154 0xa7624940	wpan_phy_register
 EXPORT_SYMBOL net/ieee802154/ieee802154 0xaf259ad4	wpan_phy_find
@@ -3572,7 +3572,6 @@ EXPORT_SYMBOL vmlinux 0x162a79dd	scsi_print_sense_hdr
 EXPORT_SYMBOL vmlinux 0x162fea33	lease_modify
 EXPORT_SYMBOL vmlinux 0x16311bce	radix_tree_lookup_slot
 EXPORT_SYMBOL vmlinux 0x16316a10	ZSTD_getFrameContentSize
-EXPORT_SYMBOL vmlinux 0x163b33e5	__siphash_aligned
 EXPORT_SYMBOL vmlinux 0x163c2065	__netlink_ns_capable
 EXPORT_SYMBOL vmlinux 0x1642426e	dquot_quotactl_sysfile_ops
 EXPORT_SYMBOL vmlinux 0x1647c2c8	pci_bus_assign_resources
@@ -4885,6 +4884,7 @@ EXPORT_SYMBOL vmlinux 0x5be63c5b	crc32c_csum_stub
 EXPORT_SYMBOL vmlinux 0x5bf8009c	unregister_cdrom
 EXPORT_SYMBOL vmlinux 0x5c017464	kvasprintf
 EXPORT_SYMBOL vmlinux 0x5c0442fd	acpi_gbl_FADT
+EXPORT_SYMBOL vmlinux 0x5c18e7d3	__siphash_unaligned
 EXPORT_SYMBOL vmlinux 0x5c1bf39c	compat_ipv6_setsockopt
 EXPORT_SYMBOL vmlinux 0x5c26d8e0	sock_kfree_s
 EXPORT_SYMBOL vmlinux 0x5c7574a1	vsprintf
@@ -5944,7 +5944,6 @@ EXPORT_SYMBOL vmlinux 0x92a6f160	radix_tree_lookup
 EXPORT_SYMBOL vmlinux 0x92b98748	param_get_ulong
 EXPORT_SYMBOL vmlinux 0x92c247e3	kernel_getsockopt
 EXPORT_SYMBOL vmlinux 0x92cdf709	jbd2_journal_check_used_features
-EXPORT_SYMBOL vmlinux 0x92dbe7ec	__hsiphash_aligned
 EXPORT_SYMBOL vmlinux 0x92fa5abb	vme_lm_detach
 EXPORT_SYMBOL vmlinux 0x92fc89cf	udp_lib_rehash
 EXPORT_SYMBOL vmlinux 0x92ff128f	devm_devfreq_register_notifier
@@ -6828,6 +6827,7 @@ EXPORT_SYMBOL vmlinux 0xc002722f	nf_afinfo
 EXPORT_SYMBOL vmlinux 0xc0108d98	rio_query_mport
 EXPORT_SYMBOL vmlinux 0xc0182dff	xfrm_find_acq
 EXPORT_SYMBOL vmlinux 0xc049d6e3	sb_min_blocksize
+EXPORT_SYMBOL vmlinux 0xc059f454	__hsiphash_unaligned
 EXPORT_SYMBOL vmlinux 0xc0763484	rfkill_blocked
 EXPORT_SYMBOL vmlinux 0xc076a612	ip_do_fragment
 EXPORT_SYMBOL vmlinux 0xc0988a18	dquot_commit_info
