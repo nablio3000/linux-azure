@@ -1988,6 +1988,9 @@ EXPORT_SYMBOL drivers/vhost/vringh 0xc578f0f7	vringh_complete_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xd355e031	vringh_complete_kern
 EXPORT_SYMBOL drivers/vhost/vringh 0xd609393d	vringh_notify_disable_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xde804bb9	vringh_iov_pull_kern
+EXPORT_SYMBOL drivers/video/fbdev/core/cfbcopyarea 0xea9d33ad	cfb_copyarea
+EXPORT_SYMBOL drivers/video/fbdev/core/cfbfillrect 0xe93cb0a4	cfb_fillrect
+EXPORT_SYMBOL drivers/video/fbdev/core/cfbimgblt 0x411c2678	cfb_imageblit
 EXPORT_SYMBOL drivers/video/fbdev/core/syscopyarea 0x66167ebb	sys_copyarea
 EXPORT_SYMBOL drivers/video/fbdev/core/sysfillrect 0x65b7fdb2	sys_fillrect
 EXPORT_SYMBOL drivers/video/fbdev/core/sysimgblt 0x18b56945	sys_imageblit
@@ -13703,6 +13706,7 @@ EXPORT_SYMBOL_GPL vmlinux 0x943258a5	irq_create_mapping
 EXPORT_SYMBOL_GPL vmlinux 0x943c84e8	pm_stay_awake
 EXPORT_SYMBOL_GPL vmlinux 0x94489ed8	xhci_dbg_trace
 EXPORT_SYMBOL_GPL vmlinux 0x946076a1	edac_pci_create_generic_ctl
+EXPORT_SYMBOL_GPL vmlinux 0x947b40c6	cpu_smt_possible
 EXPORT_SYMBOL_GPL vmlinux 0x947f8320	__page_file_index
 EXPORT_SYMBOL_GPL vmlinux 0x9482b4b3	get_state_synchronize_sched
 EXPORT_SYMBOL_GPL vmlinux 0x9490059e	fat_attach
