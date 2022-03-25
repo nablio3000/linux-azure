@@ -1988,9 +1988,6 @@ EXPORT_SYMBOL drivers/vhost/vringh 0xc578f0f7	vringh_complete_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xd355e031	vringh_complete_kern
 EXPORT_SYMBOL drivers/vhost/vringh 0xd609393d	vringh_notify_disable_user
 EXPORT_SYMBOL drivers/vhost/vringh 0xde804bb9	vringh_iov_pull_kern
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbcopyarea 0xea9d33ad	cfb_copyarea
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbfillrect 0xe93cb0a4	cfb_fillrect
-EXPORT_SYMBOL drivers/video/fbdev/core/cfbimgblt 0x411c2678	cfb_imageblit
 EXPORT_SYMBOL drivers/video/fbdev/core/syscopyarea 0x66167ebb	sys_copyarea
 EXPORT_SYMBOL drivers/video/fbdev/core/sysfillrect 0x65b7fdb2	sys_fillrect
 EXPORT_SYMBOL drivers/video/fbdev/core/sysimgblt 0x18b56945	sys_imageblit
@@ -4390,6 +4387,7 @@ EXPORT_SYMBOL vmlinux 0x40eab67b	inet_dgram_ops
 EXPORT_SYMBOL vmlinux 0x40efe1b3	refcount_dec_and_lock
 EXPORT_SYMBOL vmlinux 0x41069816	flush_rcu_work
 EXPORT_SYMBOL vmlinux 0x410f740d	config_item_set_name
+EXPORT_SYMBOL vmlinux 0x411c2678	cfb_imageblit
 EXPORT_SYMBOL vmlinux 0x412a3f8d	fc_attach_transport
 EXPORT_SYMBOL vmlinux 0x41482d8b	strndup_user
 EXPORT_SYMBOL vmlinux 0x4188d439	neigh_rand_reach_time
@@ -4761,6 +4759,7 @@ EXPORT_SYMBOL vmlinux 0x55072fbd	acpi_buffer_to_resource
 EXPORT_SYMBOL vmlinux 0x5519a11c	nf_ct_attach
 EXPORT_SYMBOL vmlinux 0x551bd071	__rb_erase_color
 EXPORT_SYMBOL vmlinux 0x553a484b	inet6_register_protosw
+EXPORT_SYMBOL vmlinux 0x553e3ff9	psched_ratecfg_precompute
 EXPORT_SYMBOL vmlinux 0x5541ea93	on_each_cpu
 EXPORT_SYMBOL vmlinux 0x554ae3a4	irq_poll_sched
 EXPORT_SYMBOL vmlinux 0x5558c3de	genphy_update_link
@@ -6659,7 +6658,6 @@ EXPORT_SYMBOL vmlinux 0xb74d5ef3	__tty_insert_flip_char
 EXPORT_SYMBOL vmlinux 0xb758b225	acpi_disable_event
 EXPORT_SYMBOL vmlinux 0xb7593ddc	iosf_mbi_unregister_pmic_bus_access_notifier
 EXPORT_SYMBOL vmlinux 0xb761318b	sev_active
-EXPORT_SYMBOL vmlinux 0xb77131b1	psched_ratecfg_precompute
 EXPORT_SYMBOL vmlinux 0xb783a404	acpi_bus_register_driver
 EXPORT_SYMBOL vmlinux 0xb78debe3	LZ4_decompress_fast_usingDict
 EXPORT_SYMBOL vmlinux 0xb7a3daba	devm_backlight_device_register
@@ -7620,6 +7618,7 @@ EXPORT_SYMBOL vmlinux 0xe914e41e	strcpy
 EXPORT_SYMBOL vmlinux 0xe91fe256	sock_no_recvmsg
 EXPORT_SYMBOL vmlinux 0xe9303e78	reservation_object_copy_fences
 EXPORT_SYMBOL vmlinux 0xe93358b4	handle_edge_irq
+EXPORT_SYMBOL vmlinux 0xe93cb0a4	cfb_fillrect
 EXPORT_SYMBOL vmlinux 0xe953b21f	get_next_ino
 EXPORT_SYMBOL vmlinux 0xe95e00cf	flex_array_get_ptr
 EXPORT_SYMBOL vmlinux 0xe965c69b	dev_add_pack
@@ -7638,6 +7637,7 @@ EXPORT_SYMBOL vmlinux 0xea7a42f9	__sg_free_table
 EXPORT_SYMBOL vmlinux 0xea7b8a44	acpi_install_interface
 EXPORT_SYMBOL vmlinux 0xea8d3bd2	bio_integrity_trim
 EXPORT_SYMBOL vmlinux 0xea90bdd3	acpi_attach_data
+EXPORT_SYMBOL vmlinux 0xea9d33ad	cfb_copyarea
 EXPORT_SYMBOL vmlinux 0xea9f6313	complete_all
 EXPORT_SYMBOL vmlinux 0xeac73847	irq_regs
 EXPORT_SYMBOL vmlinux 0xeae3d6ab	blk_delay_queue
@@ -10621,10 +10621,10 @@ EXPORT_SYMBOL_GPL net/rds/rds 0xbd7bb62d	rds_conn_create
 EXPORT_SYMBOL_GPL net/rds/rds 0xc2b0a529	rds_send_drop_acked
 EXPORT_SYMBOL_GPL net/rds/rds 0xc2dab779	rds_info_copy
 EXPORT_SYMBOL_GPL net/rds/rds 0xe97cd6ee	rds_send_path_drop_acked
-EXPORT_SYMBOL_GPL net/sctp/sctp 0x2f0335fd	sctp_get_sctp_info
-EXPORT_SYMBOL_GPL net/sctp/sctp 0xe4988cf1	sctp_transport_lookup_process
-EXPORT_SYMBOL_GPL net/sctp/sctp 0xf144b521	sctp_for_each_transport
-EXPORT_SYMBOL_GPL net/sctp/sctp 0xf5effb8b	sctp_for_each_endpoint
+EXPORT_SYMBOL_GPL net/sctp/sctp 0x1d27d057	sctp_for_each_endpoint
+EXPORT_SYMBOL_GPL net/sctp/sctp 0x4acf90b2	sctp_transport_traverse_process
+EXPORT_SYMBOL_GPL net/sctp/sctp 0x4b3be562	sctp_get_sctp_info
+EXPORT_SYMBOL_GPL net/sctp/sctp 0xa99fdddb	sctp_transport_lookup_process
 EXPORT_SYMBOL_GPL net/smc/smc 0x5b8b3b9f	smc_hash_sk
 EXPORT_SYMBOL_GPL net/smc/smc 0xb14416fe	smc_proto
 EXPORT_SYMBOL_GPL net/smc/smc 0xc87a8b64	smc_unhash_sk
