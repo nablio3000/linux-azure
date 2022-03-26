@@ -650,6 +650,7 @@ static void iscsi_target_do_login_rx(struct work_struct *work)
 		if (iscsi_target_sk_check_and_clear(conn, LOGIN_FLAGS_READ_ACTIVE))
 			goto err;
 	} else if (rc == 1) {
+		cancel_delayed_work_sync(&conn->login_timeout_work);
 		iscsi_target_nego_release(conn);
 		iscsi_post_login_handler(np, conn, zero_tsih);
 		iscsit_deaccess_np(np, tpg, tpg_np);
@@ -657,6 +658,7 @@ static void iscsi_target_do_login_rx(struct work_struct *work)
 	return;
 
 err:
+	cancel_delayed_work_sync(&conn->login_timeout_work);
 	iscsi_target_restore_sock_callbacks(conn);
 	iscsi_target_login_drop(conn, login);
 	iscsit_deaccess_np(np, tpg, tpg_np);
@@ -734,6 +736,36 @@ static void iscsi_target_sk_state_change(struct sock *sk)
 	write_unlock_bh(&sk->sk_callback_lock);
 
 	orig_state_change(sk);
+}
+
+static void iscsi_target_do_login_timeout(struct work_struct *work)
+{
+	struct iscsi_conn *conn = container_of(work,
+				struct iscsi_conn, login_timeout_work.work);
+	struct sock *sk;
+	bool state;
+
+	pr_debug("Entering iscsi_target_do_login_timeout\n");
+
+	if (!conn->sock) {
+		pr_err("iscsi_target_do_login_timeout conn->sock is NULL\n");
+		return;
+	}
+	sk = conn->sock->sk;
+
+	write_lock_bh(&sk->sk_callback_lock);
+	if (test_and_set_bit(LOGIN_FLAGS_CLOSED, &conn->login_flags)) {
+		pr_debug("iscsi_target_do_login_timeout LOGIN_FLAGS_CLOSED already set\n");
+		write_unlock_bh(&sk->sk_callback_lock);
+		return;
+	}
+	state = test_bit(LOGIN_FLAGS_READ_ACTIVE, &conn->login_flags);
+	write_unlock_bh(&sk->sk_callback_lock);
+
+	if (!state) {
+		pr_debug("iscsi_target_do_login_timeout kicking login_work\n");
+		schedule_delayed_work(&conn->login_work, 0);
+	}
 }
 
 /*
@@ -1069,6 +1101,7 @@ int iscsi_target_locate_portal(
 	int sessiontype = 0, ret = 0, tag_num, tag_size;
 
 	INIT_DELAYED_WORK(&conn->login_work, iscsi_target_do_login_rx);
+	INIT_DELAYED_WORK(&conn->login_timeout_work, iscsi_target_do_login_timeout);
 	iscsi_target_set_sock_callbacks(conn);
 
 	login->np = np;
@@ -1312,10 +1345,20 @@ int iscsi_target_start_negotiation(
 	 * and perform connection cleanup now.
 	 */
 	ret = iscsi_target_do_login(conn, login);
-	if (!ret && iscsi_target_sk_check_and_clear(conn, LOGIN_FLAGS_INITIAL_PDU))
-		ret = -1;
+	if (!ret) {
+		struct iscsi_portal_group *tpg = conn->tpg;
+		u32 login_timeout_msec = tpg->tpg_attrib.login_timeout * MSEC_PER_SEC;
+
+		schedule_delayed_work(&conn->login_timeout_work,
+				      msecs_to_jiffies(login_timeout_msec));
+
+		if (iscsi_target_sk_check_and_clear(conn, LOGIN_FLAGS_INITIAL_PDU)) {
+			ret = -1;
+		}
+	}
 
 	if (ret < 0) {
+		cancel_delayed_work_sync(&conn->login_timeout_work);
 		cancel_delayed_work_sync(&conn->login_work);
 		iscsi_target_restore_sock_callbacks(conn);
 		iscsi_remove_failed_auth_entry(conn);
