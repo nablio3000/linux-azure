@@ -454,6 +454,10 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
 		spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
 	}
 
+	dat_time_stats_update_with_irqlock(&dev->caw_write_ts, cmd->caw_read_comp_clock);
+	dat_time_start(&dev->caw_complete_ts);
+	dat_time_stats_update_with_irqlock(&dev->caw_complete_ts, cmd->caw_start_clock);
+
 	return ret;
 }
 
@@ -471,6 +475,9 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
 	unsigned long flags;
 	sense_reason_t ret = TCM_NO_SENSE;
 	int rc, i;
+
+	cmd->caw_read_comp_clock = local_clock();
+	dat_time_stats_update_with_irqlock(&dev->caw_read_ts, cmd->caw_start_clock);
 
 	/*
 	 * Handle early failure in transport_generic_request_failure(),
@@ -591,6 +598,8 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
 	cmd->transport_state |= CMD_T_ACTIVE | CMD_T_SENT;
 	spin_unlock_irq(&cmd->t_state_lock);
 
+	dat_time_start(&dev->caw_write_ts);
+
 	__target_execute_cmd(cmd, false);
 
 	kfree(buf);
@@ -600,6 +609,8 @@ miscompare:
 	pr_warn("Target/%s: Send MISCOMPARE check condition and sense\n",
 		dev->transport->name);
 	ret = TCM_MISCOMPARE_VERIFY;
+	dat_time_start(&dev->caw_miscompare_ts);
+	dat_time_stats_update_with_irqlock(&dev->caw_miscompare_ts, cmd->caw_start_clock);
 out:
 	/*
 	 * In the MISCOMPARE or failure case, unlock ->caw_sem obtained in
@@ -626,6 +637,10 @@ sbc_compare_and_write(struct se_cmd *cmd)
 	unsigned long flags;
 	sense_reason_t ret = TCM_NO_SENSE;
 	int rc;
+
+	cmd->caw_start_clock = local_clock();
+	dat_time_start(&dev->caw_read_ts);
+
 	/*
 	 * Submit the READ first for COMPARE_AND_WRITE to perform the
 	 * comparision using SGLs at cmd->t_bidi_data_sg..

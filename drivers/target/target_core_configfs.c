@@ -552,6 +552,54 @@ DEF_CONFIGFS_ATTRIB_SHOW(unmap_zeroes_data);
 DEF_CONFIGFS_ATTRIB_SHOW(max_write_same_len);
 DEF_CONFIGFS_ATTRIB_SHOW(caw_sector_interlock);
 
+#define DEF_CONFIGFS_ATTRIB_STAT_SHOW(_name, _stats)			\
+static ssize_t _name##_show(struct config_item *item, char *page)	\
+{									\
+	struct se_dev_attrib *da = to_attrib(item);			\
+	ssize_t n = 0;							\
+	unsigned long flags;						\
+	struct dat_stats *ts = &da->da_dev->_stats;			\
+	struct _dat_stats stats;					\
+	uint64_t count, started;					\
+									\
+	spin_lock_irqsave(&ts->lock, flags);				\
+	count = ts->count;						\
+	started = atomic64_read(&ts->started);				\
+	stats = ts->s;							\
+	spin_unlock_irqrestore(&ts->lock, flags);			\
+									\
+	n += sprintf(page+n, "Started = %llu\n", started);		\
+	n += sprintf(page+n, "Completed = %llu\n", count);		\
+	n += sprintf(page+n, "Last duration us = %llu\n",		\
+		div_u64(stats.last, NSEC_PER_USEC));			\
+	n += sprintf(page+n, "Maximum duration us = %llu\n",		\
+		div_u64(stats.max, NSEC_PER_USEC));			\
+	n += sprintf(page+n, "Sum duration = { %llu : %018llu } ns.\n", \
+		stats.sum.hi, stats.sum.lo);				\
+									\
+	return n;							\
+}
+
+DEF_CONFIGFS_ATTRIB_STAT_SHOW(caw_read_stat, caw_read_ts);
+DEF_CONFIGFS_ATTRIB_STAT_SHOW(caw_write_stat, caw_write_ts);
+DEF_CONFIGFS_ATTRIB_STAT_SHOW(caw_miscompare_stat, caw_miscompare_ts);
+DEF_CONFIGFS_ATTRIB_STAT_SHOW(caw_complete_stat, caw_complete_ts);
+
+#define DEF_CONFIGFS_ATTRIB_STAT_STORE(_name, _stats)			\
+static ssize_t _name##_store(struct config_item *item, const char *page,\
+		size_t count) 						\
+{									\
+	struct se_dev_attrib *da = to_attrib(item);			\
+									\
+	dat_time_stats_clear_with_irqlock(&da->da_dev->_stats);		\
+	return count;							\
+}
+
+DEF_CONFIGFS_ATTRIB_STAT_STORE(caw_read_stat, caw_read_ts);
+DEF_CONFIGFS_ATTRIB_STAT_STORE(caw_write_stat, caw_write_ts);
+DEF_CONFIGFS_ATTRIB_STAT_STORE(caw_miscompare_stat, caw_miscompare_ts);
+DEF_CONFIGFS_ATTRIB_STAT_STORE(caw_complete_stat, caw_complete_ts);
+
 #define DEF_CONFIGFS_ATTRIB_STORE_U32(_name)				\
 static ssize_t _name##_store(struct config_item *item, const char *page,\
 		size_t count)						\
@@ -1139,6 +1187,10 @@ CONFIGFS_ATTR(, max_write_same_len);
 CONFIGFS_ATTR_RO(, alua_support);
 CONFIGFS_ATTR_RO(, pgr_support);
 CONFIGFS_ATTR(, caw_sector_interlock);
+CONFIGFS_ATTR(, caw_read_stat);
+CONFIGFS_ATTR(, caw_write_stat);
+CONFIGFS_ATTR(, caw_miscompare_stat);
+CONFIGFS_ATTR(, caw_complete_stat);
 
 /*
  * dev_attrib attributes for devices using the target core SBC/SPC
@@ -1180,6 +1232,10 @@ struct configfs_attribute *sbc_attrib_attrs[] = {
 	&attr_alua_support,
 	&attr_pgr_support,
 	&attr_caw_sector_interlock,
+	&attr_caw_read_stat,
+	&attr_caw_write_stat,
+	&attr_caw_miscompare_stat,
+	&attr_caw_complete_stat,
 	NULL,
 };
 EXPORT_SYMBOL(sbc_attrib_attrs);

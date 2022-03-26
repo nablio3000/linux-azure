@@ -8,6 +8,7 @@
 #include <linux/percpu-refcount.h>
 #include <linux/semaphore.h>     /* struct semaphore */
 #include <linux/completion.h>
+#include <target/dstats.h>
 
 #define TARGET_CORE_VERSION		"v5.0"
 
@@ -532,6 +533,9 @@ struct se_cmd {
 	sense_reason_t		pi_err;
 	sector_t		bad_sector;
 	int			cpuid;
+
+	unsigned long		caw_start_clock;
+	unsigned long		caw_read_comp_clock;
 };
 
 struct se_ua {
@@ -834,6 +838,11 @@ struct se_device {
 	/* For se_lun->lun_se_dev RCU read-side critical access */
 	u32			hba_index;
 	struct rcu_head		rcu_head;
+
+	struct dat_stats	caw_read_ts;
+	struct dat_stats	caw_write_ts;
+	struct dat_stats	caw_miscompare_ts;
+	struct dat_stats	caw_complete_ts;
 };
 
 struct se_hba {
