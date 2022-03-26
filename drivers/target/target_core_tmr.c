@@ -27,6 +27,7 @@
 #include <linux/spinlock.h>
 #include <linux/list.h>
 #include <linux/export.h>
+#include <linux/ratelimit.h>
 
 #include <target/target_core_base.h>
 #include <target/target_core_backend.h>
@@ -181,8 +182,9 @@ void core_tmr_abort_task(
 		if (tmr->ref_task_tag != ref_tag)
 			continue;
 
-		printk("ABORT_TASK: Found referenced %s task_tag: %llu\n",
-			se_cmd->se_tfo->get_fabric_name(), ref_tag);
+		printk_ratelimited(KERN_INFO "ABORT_TASK: Found referenced %s task_tag: %llu"
+			" CDB: 0x%02x LBA: %llu data_length: %u\n", se_cmd->se_tfo->get_fabric_name(),
+			ref_tag, se_cmd->t_task_cdb[0], se_cmd->t_task_lba, se_cmd->data_length);
 
 		if (!__target_check_io_state(se_cmd, se_sess, 0))
 			continue;
@@ -196,7 +198,7 @@ void core_tmr_abort_task(
 		if (!transport_cmd_finish_abort(se_cmd, true))
 			target_put_sess_cmd(se_cmd);
 
-		printk("ABORT_TASK: Sending TMR_FUNCTION_COMPLETE for"
+		printk_ratelimited(KERN_INFO "ABORT_TASK: Sending TMR_FUNCTION_COMPLETE for"
 				" ref_tag: %llu\n", ref_tag);
 		tmr->response = TMR_FUNCTION_COMPLETE;
 		atomic_long_inc(&dev->aborts_complete);
@@ -204,8 +206,8 @@ void core_tmr_abort_task(
 	}
 	spin_unlock_irqrestore(&se_sess->sess_cmd_lock, flags);
 
-	printk("ABORT_TASK: Sending TMR_TASK_DOES_NOT_EXIST for ref_tag: %lld\n",
-			tmr->ref_task_tag);
+	printk_ratelimited(KERN_INFO "ABORT_TASK: Sending TMR_TASK_DOES_NOT_EXIST"
+			" for ref_tag: %lld\n", tmr->ref_task_tag);
 	tmr->response = TMR_TASK_DOES_NOT_EXIST;
 	atomic_long_inc(&dev->aborts_no_task);
 }
