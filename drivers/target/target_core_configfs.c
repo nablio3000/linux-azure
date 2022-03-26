@@ -550,6 +550,7 @@ DEF_CONFIGFS_ATTRIB_SHOW(unmap_granularity);
 DEF_CONFIGFS_ATTRIB_SHOW(unmap_granularity_alignment);
 DEF_CONFIGFS_ATTRIB_SHOW(unmap_zeroes_data);
 DEF_CONFIGFS_ATTRIB_SHOW(max_write_same_len);
+DEF_CONFIGFS_ATTRIB_SHOW(caw_sector_interlock);
 
 #define DEF_CONFIGFS_ATTRIB_STORE_U32(_name)				\
 static ssize_t _name##_store(struct config_item *item, const char *page,\
@@ -592,6 +593,7 @@ DEF_CONFIGFS_ATTRIB_STORE_BOOL(emulate_caw);
 DEF_CONFIGFS_ATTRIB_STORE_BOOL(emulate_3pc);
 DEF_CONFIGFS_ATTRIB_STORE_BOOL(enforce_pr_isids);
 DEF_CONFIGFS_ATTRIB_STORE_BOOL(is_nonrot);
+DEF_CONFIGFS_ATTRIB_STORE_BOOL(caw_sector_interlock);
 
 #define DEF_CONFIGFS_ATTRIB_STORE_STUB(_name)				\
 static ssize_t _name##_store(struct config_item *item, const char *page,\
@@ -1136,6 +1138,7 @@ CONFIGFS_ATTR(, unmap_zeroes_data);
 CONFIGFS_ATTR(, max_write_same_len);
 CONFIGFS_ATTR_RO(, alua_support);
 CONFIGFS_ATTR_RO(, pgr_support);
+CONFIGFS_ATTR(, caw_sector_interlock);
 
 /*
  * dev_attrib attributes for devices using the target core SBC/SPC
@@ -1176,6 +1179,7 @@ struct configfs_attribute *sbc_attrib_attrs[] = {
 	&attr_max_write_same_len,
 	&attr_alua_support,
 	&attr_pgr_support,
+	&attr_caw_sector_interlock,
 	NULL,
 };
 EXPORT_SYMBOL(sbc_attrib_attrs);

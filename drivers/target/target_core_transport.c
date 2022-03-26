@@ -757,7 +757,13 @@ void target_complete_cmd(struct se_cmd *cmd, u8 scsi_status)
 		 * won't be called to invoke the normal CAW completion callbacks.
 		 */
 		if (cmd->se_cmd_flags & SCF_COMPARE_AND_WRITE) {
-			up(&dev->caw_sem);
+			if (cmd->se_cmd_flags & SCF_CAW_SEM_ENABLED) {
+				up(&dev->caw_sem);
+			} else if (cmd->se_cmd_flags & SCF_CAW_SECTOR_INTERLOCK) {
+				spin_lock_irqsave(&dev->caw_sector_lock, flags);
+				list_del_init(&cmd->se_caw_node);
+				spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
+			}
 		}
 		complete_all(&cmd->t_transport_stop_comp);
 		return;
@@ -1265,6 +1271,7 @@ void transport_init_se_cmd(
 	INIT_LIST_HEAD(&cmd->se_qf_node);
 	INIT_LIST_HEAD(&cmd->se_cmd_list);
 	INIT_LIST_HEAD(&cmd->state_list);
+	INIT_LIST_HEAD(&cmd->se_caw_node);
 	init_completion(&cmd->t_transport_stop_comp);
 	init_completion(&cmd->cmd_wait_comp);
 	spin_lock_init(&cmd->t_state_lock);
@@ -1797,6 +1804,9 @@ void transport_generic_request_failure(struct se_cmd *cmd,
 					ASCQ_2CH_PREVIOUS_RESERVATION_CONFLICT_STATUS);
 		}
 
+		goto queue_status;
+	case TCM_BUSY:
+		cmd->scsi_status = SAM_STAT_BUSY;
 		goto queue_status;
 	default:
 		pr_err("Unknown transport error for CDB 0x%02x: %d\n",

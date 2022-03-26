@@ -97,6 +97,8 @@
 #define DA_IS_NONROT				0
 /* Queue Algorithm Modifier default for restricted reordering in control mode page */
 #define DA_EMULATE_REST_REORD			0
+/* Used for controlling COMPARE_AND_WRITE sector interlock usage */
+#define DA_CAW_SECTOR_INTERLOCKED		1
 
 #define SE_INQUIRY_BUF				1024
 #define SE_MODE_PAGE_BUF			512
@@ -143,6 +145,8 @@ enum se_cmd_flags_table {
 	SCF_ACK_KREF			= 0x00400000,
 	SCF_USE_CPUID			= 0x00800000,
 	SCF_TASK_ATTR_SET		= 0x01000000,
+	SCF_CAW_SEM_ENABLED		= 0x02000000,
+	SCF_CAW_SECTOR_INTERLOCK	= 0x04000000,
 };
 
 /*
@@ -183,6 +187,7 @@ enum tcm_sense_reason_table {
 	TCM_TOO_MANY_SEGMENT_DESCS		= R(0x1b),
 	TCM_UNSUPPORTED_SEGMENT_DESC_TYPE_CODE	= R(0x1c),
 	TCM_INSUFFICIENT_REGISTRATION_RESOURCES	= R(0x1d),
+	TCM_BUSY				= R(0x1e),
 #undef R
 };
 
@@ -467,6 +472,7 @@ struct se_cmd {
 	void			*sense_buffer;
 	struct list_head	se_delayed_node;
 	struct list_head	se_qf_node;
+	struct list_head	se_caw_node;
 	struct se_device      *se_dev;
 	struct se_lun		*se_lun;
 	/* Only used for internal passthrough and legacy TCM fabric modules */
@@ -673,6 +679,7 @@ struct se_dev_attrib {
 	int		is_nonrot;
 	int		emulate_rest_reord;
 	int		unmap_zeroes_data;
+	int		caw_sector_interlock;
 	u32		hw_block_size;
 	u32		block_size;
 	u32		hw_max_sectors;
@@ -786,6 +793,7 @@ struct se_device {
 	spinlock_t		se_port_lock;
 	spinlock_t		se_tmr_lock;
 	spinlock_t		qf_cmd_lock;
+	spinlock_t		caw_sector_lock;
 	struct semaphore	caw_sem;
 	/* Used for legacy SPC-2 reservationsa */
 	struct se_node_acl	*dev_reserved_node_acl;
@@ -801,6 +809,7 @@ struct se_device {
 	struct list_head	delayed_cmd_list;
 	struct list_head	state_list;
 	struct list_head	qf_cmd_list;
+	struct list_head	caw_sector_list;
 	/* Pointer to associated SE HBA */
 	struct se_hba		*se_hba;
 	/* T10 Inquiry and VPD WWN Information */

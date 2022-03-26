@@ -25,6 +25,7 @@
 #include <linux/ratelimit.h>
 #include <linux/crc-t10dif.h>
 #include <linux/t10-pi.h>
+#include <linux/ratelimit.h>
 #include <asm/unaligned.h>
 #include <scsi/scsi_proto.h>
 #include <scsi/scsi_tcq.h>
@@ -423,6 +424,7 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
 					     int *post_ret)
 {
 	struct se_device *dev = cmd->se_dev;
+	unsigned long flags;
 	sense_reason_t ret = TCM_NO_SENSE;
 
 	/*
@@ -444,7 +446,13 @@ static sense_reason_t compare_and_write_post(struct se_cmd *cmd, bool success,
 	 * Unlock ->caw_sem originally obtained during sbc_compare_and_write()
 	 * before the original READ I/O submission.
 	 */
-	up(&dev->caw_sem);
+	if (cmd->se_cmd_flags & SCF_CAW_SEM_ENABLED) {
+		up(&dev->caw_sem);
+	} else if (cmd->se_cmd_flags & SCF_CAW_SECTOR_INTERLOCK) {
+		spin_lock_irqsave(&dev->caw_sector_lock, flags);
+		list_del_init(&cmd->se_caw_node);
+		spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
+	}
 
 	return ret;
 }
@@ -460,6 +468,7 @@ static sense_reason_t compare_and_write_callback(struct se_cmd *cmd, bool succes
 	unsigned int nlbas = cmd->t_task_nolb;
 	unsigned int block_size = dev->dev_attrib.block_size;
 	unsigned int compare_len = (nlbas * block_size);
+	unsigned long flags;
 	sense_reason_t ret = TCM_NO_SENSE;
 	int rc, i;
 
@@ -596,7 +605,13 @@ out:
 	 * In the MISCOMPARE or failure case, unlock ->caw_sem obtained in
 	 * sbc_compare_and_write() before the original READ I/O submission.
 	 */
-	up(&dev->caw_sem);
+	if (cmd->se_cmd_flags & SCF_CAW_SEM_ENABLED) {
+		up(&dev->caw_sem);
+	} else if (cmd->se_cmd_flags & SCF_CAW_SECTOR_INTERLOCK) {
+		spin_lock_irqsave(&dev->caw_sector_lock, flags);
+		list_del_init(&cmd->se_caw_node);
+		spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
+	}
 	kfree(write_sg);
 	kfree(buf);
 	return ret;
@@ -607,16 +622,44 @@ sbc_compare_and_write(struct se_cmd *cmd)
 {
 	struct sbc_ops *ops = cmd->protocol_data;
 	struct se_device *dev = cmd->se_dev;
-	sense_reason_t ret;
+	struct se_cmd *tmp_cmd;
+	unsigned long flags;
+	sense_reason_t ret = TCM_NO_SENSE;
 	int rc;
 	/*
 	 * Submit the READ first for COMPARE_AND_WRITE to perform the
 	 * comparision using SGLs at cmd->t_bidi_data_sg..
 	 */
-	rc = down_interruptible(&dev->caw_sem);
-	if (rc != 0) {
-		cmd->transport_complete_callback = NULL;
-		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
+	if (dev->dev_attrib.caw_sector_interlock == 0) {
+		cmd->se_cmd_flags |= SCF_CAW_SEM_ENABLED;
+		rc = down_interruptible(&dev->caw_sem);
+		if (rc != 0) {
+			cmd->transport_complete_callback = NULL;
+			return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
+		}
+	} else if (dev->dev_attrib.caw_sector_interlock == 1) {
+		struct se_session *sess = cmd->se_sess;
+
+		spin_lock_irqsave(&dev->caw_sector_lock, flags);
+		list_for_each_entry(tmp_cmd, &dev->caw_sector_list, se_caw_node) {
+			if ((cmd->t_task_lba == tmp_cmd->t_task_lba) &&
+			    (cmd->data_length == tmp_cmd->data_length)) {
+				struct se_session *tmp_sess = tmp_cmd->se_sess;
+
+				printk_ratelimited(KERN_INFO "CAW: Got conflicting LBA:size %llu:%u "
+					"from %s, owner %s, returning BUSY\n", cmd->t_task_lba,
+					cmd->data_length, sess->se_node_acl->initiatorname,
+					tmp_sess->se_node_acl->initiatorname);
+
+				spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
+				cmd->transport_complete_callback = NULL;
+				ret = TCM_BUSY;
+				goto out;
+			}
+		}
+		cmd->se_cmd_flags |= SCF_CAW_SECTOR_INTERLOCK;
+		list_add_tail(&cmd->se_caw_node, &dev->caw_sector_list);
+		spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
 	}
 	/*
 	 * Reset cmd->data_length to individual block_size in order to not
@@ -629,7 +672,13 @@ sbc_compare_and_write(struct se_cmd *cmd)
 			      DMA_FROM_DEVICE);
 	if (ret) {
 		cmd->transport_complete_callback = NULL;
-		up(&dev->caw_sem);
+		if (cmd->se_cmd_flags & SCF_CAW_SEM_ENABLED) {
+			up(&dev->caw_sem);
+		} else if (cmd->se_cmd_flags & SCF_CAW_SECTOR_INTERLOCK) {
+			spin_lock_irqsave(&dev->caw_sector_lock, flags);
+			list_del_init(&cmd->se_caw_node);
+			spin_unlock_irqrestore(&dev->caw_sector_lock, flags);
+		}
 		return ret;
 	}
 	/*
@@ -637,7 +686,8 @@ sbc_compare_and_write(struct se_cmd *cmd)
 	 * upon MISCOMPARE, or in compare_and_write_done() upon completion
 	 * of WRITE instance user-data.
 	 */
-	return TCM_NO_SENSE;
+out:
+	return ret;
 }
 
 static int
