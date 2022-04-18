@@ -209,14 +209,16 @@ sbc_execute_write_same_unmap(struct se_cmd *cmd)
 	struct sbc_ops *ops = cmd->protocol_data;
 	sector_t nolb = sbc_get_write_same_sectors(cmd);
 	sense_reason_t ret;
+	bool async = false;
 
 	if (nolb) {
-		ret = ops->execute_unmap(cmd, cmd->t_task_lba, nolb);
+		ret = ops->execute_unmap(cmd, cmd->t_task_lba, nolb, &async);
 		if (ret)
 			return ret;
 	}
 
-	target_complete_cmd(cmd, GOOD);
+	if (!async)
+		target_complete_cmd(cmd, GOOD);
 	return 0;
 }
 
@@ -1224,6 +1226,7 @@ sbc_execute_unmap(struct se_cmd *cmd)
 	u32 range;
 	sense_reason_t ret = 0;
 	int dl, bd_dl;
+	bool async = false;
 
 	/* We never set ANC_SUP */
 	if (cmd->t_task_cdb[1])
@@ -1280,7 +1283,7 @@ sbc_execute_unmap(struct se_cmd *cmd)
 			goto err;
 		}
 
-		ret = ops->execute_unmap(cmd, lba, range);
+		ret = ops->execute_unmap(cmd, lba, range, &async);
 		if (ret)
 			goto err;
 
@@ -1290,7 +1293,7 @@ sbc_execute_unmap(struct se_cmd *cmd)
 
 err:
 	transport_kunmap_data_sg(cmd);
-	if (!ret)
+	if (!ret && !async)
 		target_complete_cmd(cmd, GOOD);
 	return ret;
 }

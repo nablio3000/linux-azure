@@ -476,7 +476,7 @@ fd_do_prot_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb)
 }
 
 static sense_reason_t
-fd_execute_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb)
+fd_execute_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb, bool *async)
 {
 	struct file *file = FD_DEV(cmd->se_dev)->fd_file;
 	struct inode *inode = file->f_mapping->host;

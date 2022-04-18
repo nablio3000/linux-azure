@@ -404,8 +404,9 @@ iblock_execute_sync_cache(struct se_cmd *cmd)
 }
 
 static sense_reason_t
-iblock_execute_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb)
+iblock_execute_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb, bool *async)
 {
+#if 0
 	struct block_device *bdev = IBLOCK_DEV(cmd->se_dev)->ibd_bd;
 	struct se_device *dev = cmd->se_dev;
 	int ret;
@@ -418,8 +419,45 @@ iblock_execute_unmap(struct se_cmd *cmd, sector_t lba, sector_t nolb)
 		pr_err("blkdev_issue_discard() failed: %d\n", ret);
 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
 	}
+#else
+	struct se_device *dev = cmd->se_dev;
+	struct iblock_req *ibr;
+	struct bio *bio;
+	struct bio_list list;
 
+	/*
+	 * Convert incoming UNMAP to DISCARD bio with async submission + completion
+	 *
+	 * XXX: This code currently assumes dev->dev_attrib.max_unmap_block_desc_count = 1
+	 */
+	*async = true;
+
+	ibr = kzalloc(sizeof(struct iblock_req), GFP_KERNEL);
+	if (!ibr) {
+		pr_err("Unable to allocate iblock_req for UNMAP\n");
+		goto out;
+	}
+
+	cmd->priv = ibr;
+
+	bio = iblock_get_bio(cmd, target_to_linux_sector(dev, lba), 0, REQ_OP_DISCARD, 0);
+	if (!bio)
+		goto out;
+
+	bio->bi_iter.bi_size = target_to_linux_sector(dev, nolb) << 9;
+
+	bio_list_init(&list);
+	bio_list_add(&list, bio);
+
+	refcount_set(&ibr->pending, 1);
+
+	iblock_submit_bios(&list);
+#endif
 	return 0;
+
+out:
+	kfree(ibr);
+	return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
 }
 
 static sense_reason_t

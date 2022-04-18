@@ -61,7 +61,7 @@ struct sbc_ops {
 	sense_reason_t (*execute_sync_cache)(struct se_cmd *cmd);
 	sense_reason_t (*execute_write_same)(struct se_cmd *cmd);
 	sense_reason_t (*execute_unmap)(struct se_cmd *cmd,
-				sector_t lba, sector_t nolb);
+				sector_t lba, sector_t nolb, bool *async);
 };
 
 int	transport_backend_register(const struct target_backend_ops *);
