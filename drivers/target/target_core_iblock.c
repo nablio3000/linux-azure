@@ -427,8 +427,13 @@ iblock_execute_zero_out(struct block_device *bdev, struct se_cmd *cmd)
 {
 	struct se_device *dev = cmd->se_dev;
 	struct scatterlist *sg = &cmd->t_data_sg[0];
+	struct iblock_req *ibr;
+	struct bio *bio;
+	struct bio_list list;
+	sector_t lba = cmd->t_task_lba;
+	u32 nolb = sbc_get_write_same_sectors(cmd);
 	unsigned char *buf, *not_zero;
-	int ret;
+//	int ret;
 
 	buf = kmap(sg_page(sg)) + sg->offset;
 	if (!buf)
@@ -442,7 +447,7 @@ iblock_execute_zero_out(struct block_device *bdev, struct se_cmd *cmd)
 
 	if (not_zero)
 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
-
+#if 0
 	ret = blkdev_issue_zeroout(bdev,
 				target_to_linux_sector(dev, cmd->t_task_lba),
 				target_to_linux_sector(dev,
@@ -452,7 +457,37 @@ iblock_execute_zero_out(struct block_device *bdev, struct se_cmd *cmd)
 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
 
 	target_complete_cmd(cmd, GOOD);
+#else
+	/*
+	 * Convert incoming WRITE_SAME w/ zero payload to DISCARD bio with
+	 * async submission + completion
+	 */
+	ibr = kzalloc(sizeof(struct iblock_req), GFP_KERNEL);
+	if (!ibr) {
+		pr_err("Unable to allocate iblock_req for UNMAP\n");
+		goto out;
+	}
+
+	cmd->priv = ibr;
+
+	bio = iblock_get_bio(cmd, target_to_linux_sector(dev, lba), 0, REQ_OP_DISCARD, 0);
+	if (!bio)
+		goto out;
+
+	bio->bi_iter.bi_size = target_to_linux_sector(dev, nolb) << 9;
+
+	bio_list_init(&list);
+	bio_list_add(&list, bio);
+
+	refcount_set(&ibr->pending, 1);
+
+	iblock_submit_bios(&list);
+#endif
 	return 0;
+
+out:
+	kfree(ibr);
+	return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
 }
 
 static sense_reason_t
